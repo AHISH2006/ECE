@@ -10,8 +10,7 @@ import LoadingPage from './components/LoadingPage';
 import './index.css';
 
 function App() {
-  const introSeen = localStorage.getItem('vibecx_intro_seen') === 'true';
-  const [isLoading, setIsLoading] = useState(!introSeen);
+  const [isLoading, setIsLoading] = useState(true);
 
   if (isLoading) {
     return <LoadingPage onComplete={() => setIsLoading(false)} />;
@@ -20,7 +19,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={introSeen ? <HomePage /> : <IntroPage />} />
+        <Route path="/" element={<IntroPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/technical" element={<TechnicalPage />} />
         <Route path="/non-technical" element={<NonTechnicalPage />} />

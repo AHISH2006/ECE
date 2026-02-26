@@ -80,12 +80,19 @@ const IntroPage = () => {
     const navigate = useNavigate();
     const [phase, setPhase] = useState('intro'); // 'intro' | 'zooming' | 'flash'
     const [showContent, setShowContent] = useState(false);
+    const [imgLoaded, setImgLoaded] = useState(false);
     const audioRef = useRef(null);
 
     useEffect(() => {
+        // Pre-load the reactor image for smooth transition
+        const img = new Image();
+        img.src = arcReactorImg;
+        img.onload = () => setImgLoaded(true);
+
         // Pre-load the audio so it plays instantly on click
         audioRef.current = new Audio(jarvisSfx);
         audioRef.current.volume = 0.85;
+
         return () => {
             if (audioRef.current) {
                 audioRef.current.pause();
@@ -95,14 +102,14 @@ const IntroPage = () => {
     }, []);
 
     useEffect(() => {
-        const showTimer = setTimeout(() => setShowContent(true), 400);
-        return () => clearTimeout(showTimer);
-    }, []);
+        if (imgLoaded) {
+            const showTimer = setTimeout(() => setShowContent(true), 400);
+            return () => clearTimeout(showTimer);
+        }
+    }, [imgLoaded]);
 
     const handleEnter = useCallback(() => {
-        if (phase !== 'intro') return;
-        // Mark as seen so returning users skip loading/intro
-        localStorage.setItem('vibecx_intro_seen', 'true');
+        if (phase !== 'intro' || !imgLoaded) return;
 
         // Play JARVIS sound immediately on activate
         if (audioRef.current) {
@@ -113,7 +120,9 @@ const IntroPage = () => {
         // After zoom completes, flash and navigate
         setTimeout(() => setPhase('flash'), 1400);
         setTimeout(() => navigate('/home'), 1900);
-    }, [phase, navigate]);
+    }, [phase, navigate, imgLoaded]);
+
+    if (!imgLoaded) return <div className="fixed inset-0 bg-[#020a18]" />;
 
     return (
         <div className="fixed inset-0 z-50 overflow-hidden" style={{ background: '#020a18' }}>
@@ -126,7 +135,7 @@ const IntroPage = () => {
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.5 }}
                     >
-                        {/* ── Background: attractive, NO overlay ── */}
+                        {/* ── Background: attractive ── */}
                         <div
                             className="absolute inset-0"
                             style={{
@@ -137,14 +146,13 @@ const IntroPage = () => {
                                 filter: 'brightness(0.6) saturate(1.5) contrast(1.1)',
                             }}
                         />
-                        {/* Very subtle top/bottom edge fade for text readability only */}
+                        {/* Subtle gradient overlay */}
                         <div
                             className="absolute inset-0"
                             style={{
                                 background: 'linear-gradient(180deg, rgba(2,10,24,0.3) 0%, transparent 15%, transparent 80%, rgba(2,10,24,0.35) 100%)',
                             }}
                         />
-
 
                         {/* ── Spark effects ── */}
                         <div className="absolute inset-0 pointer-events-none">
@@ -178,8 +186,7 @@ const IntroPage = () => {
                             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
                         />
 
-
-                        {/* ── Activate Button — pinned to bottom center ── */}
+                        {/* ── Activate Button ── */}
                         <div className="absolute bottom-10 left-0 right-0 flex justify-center z-10">
                             <motion.button
                                 onClick={handleEnter}
@@ -210,24 +217,6 @@ const IntroPage = () => {
                         >
                             SYS:ONLINE
                         </motion.span>
-                        <motion.span
-                            className="absolute bottom-8 right-14 font-rajdhani text-[9px] tracking-[0.2em] text-reactor-blue/20 uppercase z-10"
-                            initial={{ opacity: 0 }}
-                            animate={showContent ? { opacity: 1 } : {}}
-                            transition={{ delay: 3.4 }}
-                        >
-                            ECE.DEPT//V2026
-                        </motion.span>
-
-                        {/* Bottom text */}
-                        <motion.p
-                            className="absolute bottom-8 font-rajdhani text-[10px] tracking-[0.3em] text-reactor-blue/20 uppercase z-10"
-                            initial={{ opacity: 0 }}
-                            animate={showContent ? { opacity: 1 } : {}}
-                            transition={{ duration: 1, delay: 3.5 }}
-                        >
-                            Powered by ECE Department
-                        </motion.p>
                     </motion.div>
                 )}
 
@@ -243,7 +232,7 @@ const IntroPage = () => {
                         <div
                             className="absolute inset-0"
                             style={{
-                                backgroundImage: `url(${arcReactorImg})`,
+                                backgroundImage: `url(${Background})`,
                                 backgroundSize: 'cover',
                                 backgroundPosition: 'center',
                                 filter: 'blur(3px) brightness(0.2)',
