@@ -1,0 +1,199 @@
+.loading-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.reactor-bg-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at center, rgba(0, 229, 255, 0.08) 0%, transparent 70%),
+        rgba(2, 10, 24, 1);
+    z-index: 1;
+}
+
+.loading-hud {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.reactor-container {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reactor-layer {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.layer-1 {
+    border: 2px dashed rgba(0, 229, 255, 0.1);
+    transform: scale(1.1);
+}
+
+.layer-2 {
+    border: 3px double rgba(0, 229, 255, 0.15);
+    transform: scale(0.9);
+}
+
+.layer-3 {
+    border: 1px solid rgba(0, 229, 255, 0.2);
+    border-top: 1px solid transparent;
+    transform: scale(0.7);
+}
+
+.reactor-core-wrap {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(0, 229, 255, 0.3);
+}
+
+.reactor-img {
+    width: 110%;
+    height: 110%;
+    object-fit: cover;
+    filter: brightness(1.2) contrast(1.1);
+}
+
+.reactor-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, transparent 30%, rgba(0, 229, 255, 0.15) 100%);
+    mix-blend-mode: overlay;
+    animation: pulseGlow 3s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+
+    0%,
+    100% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+}
+
+.progress-counter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 20;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.8), 0 0 20px rgba(0, 229, 255, 0.4);
+}
+
+.progress-num {
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin-right: -4px;
+}
+
+.progress-unit {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: rgba(0, 229, 255, 0.8);
+}
+
+.progress-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    color: rgba(0, 229, 255, 0.6);
+    margin-top: -4px;
+}
+
+/* Side Stats */
+.hud-info-left,
+.hud-info-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.hud-info-left {
+    left: 5%;
+}
+
+.hud-info-right {
+    right: 5%;
+    text-align: right;
+}
+
+.hud-stat {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: rgba(0, 229, 255, 0.4);
+    border-bottom: 1px solid rgba(0, 229, 255, 0.1);
+    padding-bottom: 4px;
+}
+
+.loading-footer-text {
+    position: absolute;
+    bottom: 40px;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: rgba(0, 229, 255, 0.4);
+    z-index: 10;
+}
+
+.scanline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent 50%, rgba(0, 229, 255, 0.02) 50%);
+    background-size: 100% 4px;
+    z-index: 100;
+    pointer-events: none;
+}
+
+@media (max-width: 900px) {
+    .reactor-container {
+        transform: scale(0.7);
+    }
+
+    .hud-info-left,
+    .hud-info-right {
+        display: none;
+    }
+}
+
+@media (max-width: 500px) {
+    .reactor-container {
+        transform: scale(0.55);
+    }
+}

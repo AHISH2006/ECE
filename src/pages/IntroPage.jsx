@@ -22,7 +22,7 @@ const Spark = ({ delay, x, y, size, duration, angle }) => (
             opacity: [0, 1, 1, 0],
             scale: [0, 1, 0.5, 0],
             x: [0, Math.cos(angle) * 120, Math.cos(angle) * 200],
-            y: [0, Math.sin(angle) * 120, Math.sin(angle)* 200],
+            y: [0, Math.sin(angle) * 120, Math.sin(angle) * 200],
         }}
         transition={{
             duration: duration,
@@ -101,6 +101,9 @@ const IntroPage = () => {
 
     const handleEnter = useCallback(() => {
         if (phase !== 'intro') return;
+        // Mark as seen so returning users skip loading/intro
+        localStorage.setItem('vibecx_intro_seen', 'true');
+
         // Play JARVIS sound immediately on activate
         if (audioRef.current) {
             audioRef.current.currentTime = 0;

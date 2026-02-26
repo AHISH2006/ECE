@@ -137,12 +137,32 @@
 .contact-page-section {
     position: relative;
     z-index: 10;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 24px;
     padding: 0 48px 64px;
-    max-width: 900px;
+    max-width: 1100px;
     margin: 0 auto;
+}
+
+.contact-section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    color: #00e5ff;
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+    text-transform: uppercase;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.contact-grid-wrap {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    width: 100%;
 }
 
 .contact-page-card,
@@ -194,6 +214,38 @@
     margin: 0;
 }
 
+.contact-card-role {
+    font-size: 0.55rem;
+    letter-spacing: 0.22em;
+    color: rgba(0, 229, 255, 0.45);
+    text-transform: uppercase;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.contact-card-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    color: #fff;
+    margin: 4px 0;
+    letter-spacing: 0.05em;
+}
+
+.contact-card-post {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.45);
+    margin-bottom: 8px;
+}
+
+.contact-card-phone {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    color: #00e5ff;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .reg-grid {
@@ -209,7 +261,10 @@
     }
 
     .contact-page-section {
-        grid-template-columns: 1fr;
         padding: 0 20px 48px;
+    }
+
+    .contact-grid-wrap {
+        grid-template-columns: 1fr;
     }
 }
