@@ -159,19 +159,21 @@ const IntroPage = () => {
                         />
 
 
-                        {/* ── Activate Button — bottom of page, visible immediately ── */}
-                        <motion.button
-                            onClick={handleEnter}
-                            className="absolute bottom-16 z-10 group relative px-12 py-3.5 rounded-full border border-reactor-blue/40 bg-reactor-blue/5 backdrop-blur-sm font-orbitron text-sm tracking-[0.3em] text-reactor-light/80 uppercase cursor-pointer overflow-hidden transition-all duration-500 hover:border-reactor-cyan/60 hover:bg-reactor-blue/10 hover:text-reactor-glow hover:shadow-[0_0_40px_rgba(30,144,255,0.35)]"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.3 }}
-                            whileHover={{ scale: 1.06 }}
-                            whileTap={{ scale: 0.94 }}
-                        >
-                            <span className="relative z-10">ACTIVATE</span>
-                            <div className="absolute inset-0 animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        </motion.button>
+                        {/* ── Activate Button — pinned to bottom center ── */}
+                        <div className="absolute bottom-10 left-0 right-0 flex justify-center z-10">
+                            <motion.button
+                                onClick={handleEnter}
+                                className="group relative px-20 py-6 rounded-full border-4 border-reactor-blue/50 bg-reactor-blue/8 backdrop-blur-sm font-orbitron text-xl tracking-[0.5em] text-reactor-light/90 uppercase cursor-pointer overflow-hidden transition-all duration-500 hover:border-reactor-cyan/80 hover:bg-reactor-blue/15 hover:text-reactor-glow hover:shadow-[0_0_60px_rgba(30,144,255,0.55),0_0_120px_rgba(30,144,255,0.2)]"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.3 }}
+                                whileHover={{ scale: 1.06 }}
+                                whileTap={{ scale: 0.94 }}
+                            >
+                                <span className="relative z-10">ACTIVATE</span>
+                                <div className="absolute inset-0 animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            </motion.button>
+                        </div>
 
                         {/* ── Corner HUD ── */}
                         <div className="absolute top-5 left-5 w-10 h-10 border-t-2 border-l-2 border-reactor-blue/25" />
