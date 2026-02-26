@@ -1,8 +1,9 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import arcReactorImg from '../assets/image.png';
-import Background from "../assets/background.png"
+import Background from "../assets/background.png";
+import jarvisSfx from '../assets/jarvis.mpeg?url';
 
 /* ── Spark particle component ── */
 const Spark = ({ delay, x, y, size, duration, angle }) => (
@@ -21,7 +22,7 @@ const Spark = ({ delay, x, y, size, duration, angle }) => (
             opacity: [0, 1, 1, 0],
             scale: [0, 1, 0.5, 0],
             x: [0, Math.cos(angle) * 120, Math.cos(angle) * 200],
-            y: [0, Math.sin(angle) * 120, Math.sin(angle) * 200],
+            y: [0, Math.sin(angle) * 120, Math.sin(angle)* 200],
         }}
         transition={{
             duration: duration,
@@ -79,16 +80,32 @@ const IntroPage = () => {
     const navigate = useNavigate();
     const [phase, setPhase] = useState('intro'); // 'intro' | 'zooming' | 'flash'
     const [showContent, setShowContent] = useState(false);
+    const audioRef = useRef(null);
+
+    useEffect(() => {
+        // Pre-load the audio so it plays instantly on click
+        audioRef.current = new Audio(jarvisSfx);
+        audioRef.current.volume = 0.85;
+        return () => {
+            if (audioRef.current) {
+                audioRef.current.pause();
+                audioRef.current = null;
+            }
+        };
+    }, []);
 
     useEffect(() => {
         const showTimer = setTimeout(() => setShowContent(true), 400);
-        return () => {
-            clearTimeout(showTimer);
-        };
+        return () => clearTimeout(showTimer);
     }, []);
 
     const handleEnter = useCallback(() => {
         if (phase !== 'intro') return;
+        // Play JARVIS sound immediately on activate
+        if (audioRef.current) {
+            audioRef.current.currentTime = 0;
+            audioRef.current.play().catch(() => { });
+        }
         setPhase('zooming');
         // After zoom completes, flash and navigate
         setTimeout(() => setPhase('flash'), 1400);

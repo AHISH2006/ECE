@@ -1,0 +1,215 @@
+/* =============================================
+   REGISTER PAGE — extra styles
+   ============================================= */
+
+.reg-section {
+    position: relative;
+    z-index: 10;
+    padding: 0 40px 64px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Form card */
+.reg-form {
+    position: relative;
+    border: 1px solid rgba(0, 229, 255, 0.22);
+    background: rgba(4, 14, 32, 0.92);
+    backdrop-filter: blur(16px);
+    padding: 40px 44px;
+    overflow: hidden;
+}
+
+.reg-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #00e5ff, transparent);
+}
+
+.reg-form-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    color: #00e5ff;
+    text-shadow: 0 0 12px rgba(0, 229, 255, 0.5);
+    text-transform: uppercase;
+    margin: 0 0 28px;
+}
+
+.reg-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+.reg-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.reg-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.22em;
+    color: rgba(0, 229, 255, 0.5);
+    text-transform: uppercase;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.reg-input {
+    background: rgba(0, 229, 255, 0.04);
+    border: 1px solid rgba(0, 229, 255, 0.2);
+    color: rgba(255, 255, 255, 0.85);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.06em;
+    padding: 10px 14px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.reg-input::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.reg-input:focus {
+    border-color: rgba(0, 229, 255, 0.6);
+    box-shadow: 0 0 18px rgba(0, 229, 255, 0.15);
+    background: rgba(0, 229, 255, 0.07);
+}
+
+.reg-input option,
+.reg-input optgroup {
+    background: #051530;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.reg-submit {
+    display: block;
+    margin: 0 auto;
+    padding: 14px 48px;
+}
+
+/* Success state */
+.reg-success {
+    position: relative;
+    border: 1px solid rgba(0, 229, 255, 0.35);
+    background: rgba(4, 14, 32, 0.92);
+    backdrop-filter: blur(16px);
+    padding: 60px 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+.reg-success-icon {
+    font-size: 3.5rem;
+}
+
+.reg-success-title {
+    font-size: 1.4rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    color: #00e5ff;
+    text-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
+    margin: 0;
+}
+
+.reg-success-sub {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    color: rgba(255, 255, 255, 0.45);
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* Contact page extras */
+.contact-page-section {
+    position: relative;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    padding: 0 48px 64px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.contact-page-card,
+.contact-page-info {
+    position: relative;
+    border: 1px solid rgba(0, 229, 255, 0.22);
+    background: rgba(4, 14, 32, 0.88);
+    backdrop-filter: blur(14px);
+    padding: 36px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+}
+
+.contact-page-card::before,
+.contact-page-info::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #00e5ff, transparent);
+}
+
+.contact-page-card:hover,
+.contact-page-info:hover {
+    border-color: rgba(0, 229, 255, 0.5);
+    box-shadow: 0 0 40px rgba(0, 229, 255, 0.1);
+}
+
+.contact-info-title {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: rgba(0, 229, 255, 0.5);
+    text-transform: uppercase;
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.contact-info-line {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.07em;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .reg-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .reg-form {
+        padding: 28px 20px;
+    }
+
+    .reg-section {
+        padding: 0 16px 48px;
+    }
+
+    .contact-page-section {
+        grid-template-columns: 1fr;
+        padding: 0 20px 48px;
+    }
+}
