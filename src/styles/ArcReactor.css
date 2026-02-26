@@ -1,0 +1,477 @@
+/* ============================================
+   ARC REACTOR - Blue Theme Animated Styles
+   ============================================ */
+
+/* Keyframes */
+@keyframes rotate-cw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rotate-ccw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 40px 10px rgba(30, 144, 255, 0.4),
+                0 0 80px 30px rgba(30, 144, 255, 0.2),
+                0 0 120px 50px rgba(30, 144, 255, 0.1);
+    opacity: 0.8;
+  }
+  50% {
+    box-shadow: 0 0 60px 20px rgba(30, 144, 255, 0.6),
+                0 0 120px 50px rgba(30, 144, 255, 0.3),
+                0 0 180px 80px rgba(30, 144, 255, 0.15);
+    opacity: 1;
+  }
+}
+
+@keyframes core-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px 5px rgba(120, 200, 255, 0.8),
+                0 0 40px 15px rgba(30, 144, 255, 0.5);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px 10px rgba(120, 200, 255, 1),
+                0 0 60px 25px rgba(30, 144, 255, 0.7);
+  }
+}
+
+@keyframes particle-orbit {
+  0% {
+    transform: rotate(var(--angle)) translateX(0px);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: rotate(calc(var(--angle) + 180deg)) translateX(var(--distance));
+    opacity: 0;
+  }
+}
+
+@keyframes electric-flicker {
+  0%, 100% { opacity: 0; }
+  5% { opacity: 1; }
+  10% { opacity: 0; }
+  15% { opacity: 0.8; }
+  20% { opacity: 0; }
+  50% { opacity: 0; }
+  55% { opacity: 0.9; }
+  60% { opacity: 0; }
+  65% { opacity: 0.7; }
+  70% { opacity: 0; }
+}
+
+@keyframes segment-pulse {
+  0%, 100% {
+    opacity: 0.5;
+    box-shadow: 0 0 5px rgba(30, 144, 255, 0.3);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 15px rgba(30, 144, 255, 0.8);
+  }
+}
+
+@keyframes energy-flow {
+  0% {
+    opacity: 0.2;
+    height: 30px;
+  }
+  50% {
+    opacity: 0.8;
+    height: 40px;
+  }
+  100% {
+    opacity: 0.2;
+    height: 30px;
+  }
+}
+
+/* Container */
+.arc-reactor-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 450px;
+  height: 450px;
+}
+
+/* Outer glow */
+.arc-glow-outer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  animation: pulse-glow 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Main reactor */
+.arc-reactor {
+  position: relative;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    circle,
+    rgba(10, 25, 50, 0.9) 0%,
+    rgba(5, 12, 25, 0.95) 40%,
+    rgba(2, 8, 18, 1) 100%
+  );
+  border: 2px solid rgba(30, 144, 255, 0.3);
+  box-shadow: inset 0 0 40px rgba(30, 144, 255, 0.15),
+              inset 0 0 80px rgba(30, 144, 255, 0.05);
+}
+
+/* Ring base styles */
+.reactor-ring {
+  position: absolute;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Outer ring */
+.ring-outer {
+  width: 360px;
+  height: 360px;
+  border: 3px solid rgba(30, 144, 255, 0.4);
+}
+
+.ring-notch {
+  position: absolute;
+  width: 2px;
+  height: 12px;
+  background: rgba(30, 144, 255, 0.6);
+  top: -2px;
+  left: 50%;
+  transform-origin: 50% 182px;
+  box-shadow: 0 0 4px rgba(30, 144, 255, 0.4);
+}
+
+/* Ring 2 */
+.ring-2 {
+  width: 300px;
+  height: 300px;
+  border: 2px solid rgba(30, 144, 255, 0.3);
+}
+
+.ring-segment {
+  position: absolute;
+  width: 4px;
+  height: 20px;
+  background: linear-gradient(to bottom, rgba(30, 144, 255, 0.8), transparent);
+  top: -4px;
+  left: 50%;
+  transform-origin: 50% 152px;
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(30, 144, 255, 0.5);
+}
+
+.ring-segment.thick {
+  width: 8px;
+  height: 25px;
+  background: linear-gradient(to bottom, rgba(80, 180, 255, 0.9), rgba(30, 144, 255, 0.2));
+  transform-origin: 50% 127px;
+  top: -6px;
+  border-radius: 3px;
+  box-shadow: 0 0 12px rgba(30, 144, 255, 0.6);
+}
+
+/* Ring 3 */
+.ring-3 {
+  width: 240px;
+  height: 240px;
+  border: 2px solid rgba(30, 144, 255, 0.25);
+}
+
+/* Ring 4 - energy lines */
+.ring-4 {
+  width: 200px;
+  height: 200px;
+  border: 1px solid rgba(30, 144, 255, 0.2);
+}
+
+.energy-line {
+  position: absolute;
+  width: 1.5px;
+  height: 30px;
+  background: linear-gradient(to bottom, rgba(100, 200, 255, 0.7), transparent);
+  top: -5px;
+  left: 50%;
+  transform-origin: 50% 102px;
+  animation: energy-flow 2s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * 0.1s);
+}
+
+/* Inner ring */
+.ring-inner {
+  width: 150px;
+  height: 150px;
+  border: 2px solid rgba(30, 144, 255, 0.35);
+}
+
+.inner-segment {
+  position: absolute;
+  width: 12px;
+  height: 30px;
+  background: linear-gradient(
+    to bottom,
+    rgba(80, 180, 255, 0.9),
+    rgba(30, 144, 255, 0.3)
+  );
+  top: -8px;
+  left: calc(50% - 6px);
+  transform-origin: 50% 82px;
+  border-radius: 4px;
+  animation: segment-pulse 1.5s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(30, 144, 255, 0.5);
+}
+
+/* Triangle core design */
+.reactor-core-triangle {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+}
+
+.triangle-arm {
+  position: absolute;
+  width: 6px;
+  height: 45px;
+  background: linear-gradient(
+    to bottom,
+    rgba(120, 200, 255, 0.9),
+    rgba(30, 144, 255, 0.2)
+  );
+  left: calc(50% - 3px);
+  top: 0;
+  transform-origin: 50% 50px;
+  border-radius: 3px;
+  box-shadow: 0 0 15px rgba(30, 144, 255, 0.6);
+}
+
+.arm-1 { transform: rotate(0deg); }
+.arm-2 { transform: rotate(120deg); }
+.arm-3 { transform: rotate(240deg); }
+
+/* Core */
+.reactor-core {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(200, 230, 255, 0.95) 0%,
+    rgba(80, 180, 255, 0.8) 40%,
+    rgba(30, 144, 255, 0.5) 70%,
+    transparent 100%
+  );
+  animation: core-pulse 2s ease-in-out infinite;
+  z-index: 10;
+}
+
+.core-inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(180, 220, 255, 0.9) 50%,
+    rgba(80, 180, 255, 0.7) 100%
+  );
+  box-shadow: 0 0 20px rgba(200, 230, 255, 0.8);
+}
+
+.core-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 0 10px white, 0 0 20px rgba(200, 230, 255, 1);
+}
+
+/* Rotation animations */
+.rotate-cw {
+  animation: rotate-cw 20s linear infinite;
+}
+
+.rotate-ccw {
+  animation: rotate-ccw 15s linear infinite;
+}
+
+.rotate-cw-slow {
+  animation: rotate-cw 30s linear infinite;
+}
+
+.rotate-ccw-slow {
+  animation: rotate-ccw 25s linear infinite;
+}
+
+.rotate-cw-fast {
+  animation: rotate-cw 8s linear infinite;
+}
+
+/* Particles */
+.particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.particle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(120, 200, 255, 0.9);
+  box-shadow: 0 0 6px rgba(30, 144, 255, 0.8);
+  animation: particle-orbit 3s ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+/* Electric arcs */
+.electric-arcs {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.electric-arc {
+  position: absolute;
+  top: 15%;
+  left: calc(50% - 1px);
+  width: 2px;
+  height: 40px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(150, 220, 255, 0.9),
+    transparent
+  );
+  transform-origin: 50% 185px;
+  animation: electric-flicker 2s ease infinite;
+  box-shadow: 0 0 8px rgba(100, 200, 255, 0.6);
+  border-radius: 1px;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+@media (max-width: 500px) {
+  .arc-reactor-container {
+    width: 300px;
+    height: 300px;
+  }
+
+  .arc-reactor {
+    width: 260px;
+    height: 260px;
+  }
+
+  .ring-outer {
+    width: 245px;
+    height: 245px;
+  }
+
+  .ring-notch {
+    height: 8px;
+    transform-origin: 50% 124px;
+  }
+
+  .ring-2 {
+    width: 205px;
+    height: 205px;
+  }
+
+  .ring-segment {
+    height: 14px;
+    transform-origin: 50% 104px;
+  }
+
+  .ring-segment.thick {
+    height: 18px;
+    transform-origin: 50% 87px;
+  }
+
+  .ring-3 {
+    width: 165px;
+    height: 165px;
+  }
+
+  .ring-4 {
+    width: 137px;
+    height: 137px;
+  }
+
+  .energy-line {
+    height: 20px;
+    transform-origin: 50% 70px;
+  }
+
+  .ring-inner {
+    width: 103px;
+    height: 103px;
+  }
+
+  .inner-segment {
+    width: 8px;
+    height: 20px;
+    left: calc(50% - 4px);
+    transform-origin: 50% 56px;
+  }
+
+  .reactor-core-triangle {
+    width: 68px;
+    height: 68px;
+  }
+
+  .triangle-arm {
+    width: 4px;
+    height: 30px;
+    left: calc(50% - 2px);
+    transform-origin: 50% 34px;
+  }
+
+  .reactor-core {
+    width: 34px;
+    height: 34px;
+  }
+
+  .core-inner {
+    width: 16px;
+    height: 16px;
+  }
+
+  .core-dot {
+    width: 6px;
+    height: 6px;
+  }
+}

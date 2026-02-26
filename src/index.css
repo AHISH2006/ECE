@@ -1,0 +1,231 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+/* ============================================
+   CUSTOM THEME - Arc Reactor Blue
+   ============================================ */
+
+@theme {
+  --font-orbitron: 'Orbitron', sans-serif;
+  --font-rajdhani: 'Rajdhani', sans-serif;
+
+  --color-reactor-dark: #020a18;
+  --color-reactor-deep: #051530;
+  --color-reactor-mid: #08203e;
+  --color-reactor-surface: #041225;
+  --color-reactor-blue: #1e90ff;
+  --color-reactor-cyan: #50b4ff;
+  --color-reactor-light: #78c8ff;
+  --color-reactor-glow: #b4dcff;
+  --color-reactor-white: #e0f0ff;
+  --color-reactor-green: #00ff88;
+
+  --animate-spin-slow: spin 20s linear infinite;
+  --animate-spin-slower: spin 30s linear infinite;
+  --animate-spin-reverse: spin-reverse 15s linear infinite;
+  --animate-spin-reverse-slow: spin-reverse 25s linear infinite;
+  --animate-pulse-glow: pulse-glow 3s ease-in-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
+}
+
+/* ============================================
+   CUSTOM KEYFRAMES
+   ============================================ */
+
+@keyframes spin-reverse {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 40px 10px rgba(30, 144, 255, 0.4),
+      0 0 80px 30px rgba(30, 144, 255, 0.2);
+    opacity: 0.8;
+  }
+
+  50% {
+    box-shadow: 0 0 60px 20px rgba(30, 144, 255, 0.6),
+      0 0 120px 50px rgba(30, 144, 255, 0.3);
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes grid-scroll {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 0 60px;
+  }
+}
+
+@keyframes electric-flicker {
+
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  5% {
+    opacity: 1;
+  }
+
+  10% {
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.8;
+  }
+
+  20% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  55% {
+    opacity: 0.9;
+  }
+
+  60% {
+    opacity: 0;
+  }
+}
+
+@keyframes glitch {
+
+  0%,
+  100% {
+    text-shadow: 2px 0 #ff0040, -2px 0 #00ffff;
+  }
+
+  25% {
+    text-shadow: -2px 0 #ff0040, 2px 0 #00ffff;
+  }
+
+  50% {
+    text-shadow: 2px 2px #ff0040, -2px -2px #00ffff;
+  }
+
+  75% {
+    text-shadow: -2px 2px #ff0040, 2px -2px #00ffff;
+  }
+}
+
+@keyframes status-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 4px rgba(0, 255, 136, 0.5);
+  }
+
+  50% {
+    box-shadow: 0 0 12px rgba(0, 255, 136, 0.9);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ============================================
+   GLOBAL RESET
+   ============================================ */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-reactor-dark);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: var(--font-rajdhani);
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Background grid utility */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(30, 144, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30, 144, 255, 0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: grid-scroll 8s linear infinite;
+}
+
+/* Glitch animation utility */
+.animate-glitch {
+  animation: glitch 3s ease-in-out infinite;
+}
+
+/* Status pulse */
+.animate-status-pulse {
+  animation: status-pulse 2s ease-in-out infinite;
+}
+
+/* Shimmer effect */
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(30, 144, 255, 0.3), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-reactor-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(30, 144, 255, 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(30, 144, 255, 0.5);
+}
