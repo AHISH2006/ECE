@@ -168,6 +168,68 @@
     }
 }
 
+/* ── COUNTDOWN TIMER ── */
+.hp-timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 40px;
+    padding: 16px 24px;
+    background: rgba(0, 229, 255, 0.05);
+    border: 1px solid rgba(0, 229, 255, 0.15);
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.hp-timer-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 60px;
+}
+
+.hp-timer-val {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #00e5ff;
+    line-height: 1;
+    text-shadow: 0 0 12px rgba(0, 229, 255, 0.5);
+}
+
+.hp-timer-lbl {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: rgba(0, 229, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+}
+
+.hp-timer-sep {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: rgba(0, 229, 255, 0.3);
+    margin-top: -16px;
+    animation: pulseSep 1.5s infinite;
+}
+
+@keyframes pulseSep {
+
+    0%,
+    100% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 0.8;
+        text-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
+    }
+}
+
 /* =============================
    HERO SECTION
    ============================= */
@@ -219,7 +281,7 @@
     font-weight: 900;
     letter-spacing: 0.04em;
     color: #ffd700;
-    text-shadow: 0 0 30px rgba(255, 215, 0, 0.6),w 0 0 80px rgba(255, 165, 0, 0.3);
+    text-shadow: 0 0 30px rgba(255, 215, 0, 0.6), w 0 0 80px rgba(255, 165, 0, 0.3);
     margin: 8px 0 0;
     line-height: 1.1;
 }

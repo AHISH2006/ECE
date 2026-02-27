@@ -1,4 +1,59 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
+/* ── Countdown Timer ── */
+const CountdownTimer = ({ targetDate }) => {
+    const calculateTimeLeft = () => {
+        const difference = +new Date(targetDate) - +new Date();
+        if (difference <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+
+        return {
+            days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+            hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+            minutes: Math.floor((difference / 1000 / 60) % 60),
+            seconds: Math.floor((difference / 1000) % 60)
+        };
+    };
+
+    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setTimeLeft(calculateTimeLeft());
+        }, 1000);
+        return () => clearInterval(timer);
+    }, [targetDate]);
+
+    const format = (num) => num.toString().padStart(2, '0');
+
+    return (
+        <motion.div
+            className="hp-timer"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.2 }}
+        >
+            <div className="hp-timer-box">
+                <span className="hp-timer-val">{format(timeLeft.days)}</span>
+                <span className="hp-timer-lbl">Days</span>
+            </div>
+            <span className="hp-timer-sep">:</span>
+            <div className="hp-timer-box">
+                <span className="hp-timer-val">{format(timeLeft.hours)}</span>
+                <span className="hp-timer-lbl">Hours</span>
+            </div>
+            <span className="hp-timer-sep">:</span>
+            <div className="hp-timer-box">
+                <span className="hp-timer-val">{format(timeLeft.minutes)}</span>
+                <span className="hp-timer-lbl">Mins</span>
+            </div>
+            <span className="hp-timer-sep">:</span>
+            <div className="hp-timer-box">
+                <span className="hp-timer-val">{format(timeLeft.seconds)}</span>
+                <span className="hp-timer-lbl">Secs</span>
+            </div>
+        </motion.div>
+    );
+};
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 // import CircuitBackground from '../components/CircuitBackground'; (Moved to App.jsx)
@@ -114,6 +169,8 @@ const HomePage = () => {
                         Explore Events
                     </motion.button>
                 </motion.div>
+
+                <CountdownTimer targetDate="2026-03-11T09:00:00" />
 
                 <div className="hero-glow-box" />
             </motion.section>
