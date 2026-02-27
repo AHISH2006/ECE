@@ -97,11 +97,11 @@
 
 /* Register highlight */
 .snav-link--register {
-    border: 1px solid rgba(0, 229, 255, 0.38);
-    color: #00e5ff;
-    background: rgba(0, 229, 255, 0.06);
-    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
-    transition: all 0.3s;
+        border: 1px solid rgba(0, 229, 255, 0.38);
+        color: #00e5ff;
+        background: rgba(0, 229, 255, 0.06);
+        clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+        transition: all 0.3s;
 }
 
 .snav-link--register:hover,

@@ -7,7 +7,7 @@
 /* ── Page shell ── */
 .tp-page {
     min-height: 100vh;
-    background-color: #020a18;
+    background-color: transparent;
     font-family: 'Orbitron', sans-serif;
     overflow-x: hidden;
     position: relative;

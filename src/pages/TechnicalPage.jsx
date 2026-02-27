@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import CircuitBackground from '../components/CircuitBackground';
+// import CircuitBackground from '../components/CircuitBackground';
 import Navbar from '../components/Navbar';
 import TypewriterText from '../components/TypewriterText';
 import '../styles/TechnicalPage.css';
@@ -78,7 +78,7 @@ const TechnicalPage = () => {
 
     return (
         <div className="tp-page">
-            <CircuitBackground />
+            {/* <CircuitBackground /> */}
             <div className="circuit-overlay" />
             <div className="scan-line" />
             <div className="hud-corner tl" /><div className="hud-corner tr" />

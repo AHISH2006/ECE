@@ -1,13 +1,12 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
 
 /* ============================================
    CUSTOM THEME - Arc Reactor Blue
    ============================================ */
 
 @theme {
-  --font-orbitron: 'Orbitron', sans-serif;
-  --font-rajdhani: 'Rajdhani', sans-serif;
+  /* Fonts removed — using system sans-serif */
 
   --color-reactor-dark: #020a18;
   --color-reactor-deep: #051530;
@@ -175,7 +174,8 @@ html {
 }
 
 body {
-  background: var(--color-reactor-dark);
+  background: #010510;
+  /* Match CircuitBackground BG_COLOR */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: var(--font-rajdhani);
@@ -228,7 +228,9 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(30, 144, 255, 0.5);
-}@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+}
+
+
 
 /* -- Page Transitions -- */
 .page-transition-wrapper {
@@ -251,11 +253,10 @@ body {
 .shutter-panel {
   flex: 1;
   height: 100%;
-  background: linear-gradient(180deg, 
-    rgba(0, 229, 255, 0.25) 0%, 
-    rgba(30, 144, 255, 0.15) 50%, 
-    rgba(0, 229, 255, 0.25) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(0, 229, 255, 0.25) 0%,
+      rgba(30, 144, 255, 0.15) 50%,
+      rgba(0, 229, 255, 0.25) 100%);
   backdrop-filter: blur(8px);
   border-left: 1px solid rgba(0, 229, 255, 0.1);
   border-right: 1px solid rgba(0, 229, 255, 0.1);
@@ -272,4 +273,3 @@ body {
   z-index: 10000;
   pointer-events: none;
 }
-

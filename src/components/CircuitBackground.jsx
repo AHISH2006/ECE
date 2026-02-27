@@ -3,7 +3,6 @@ import React, { useEffect, useRef } from 'react';
 
 const TRACE_COLOR = 'rgba(0, 180, 255, 0.55)';
 const GLOW_COLOR = 'rgba(0, 220, 255, 0.18)';
-const NODE_COLOR = 'rgba(0, 229, 255, 0.9)';
 const PULSE_COLOR = '#00e5ff';
 const CHIP_FILL = 'rgba(10, 20, 50, 0.85)';
 const CHIP_BORDER = 'rgba(0, 180, 255, 0.6)';

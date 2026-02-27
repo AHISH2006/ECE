@@ -1,320 +1,337 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import arcReactorImg from '../assets/image.png';
 import Background from "../assets/background.png";
-import jarvisSfx from '../assets/jarvis.mpeg?url';
 
-/* ── Spark particle component ── */
+/* ══════════════════════════════════════════
+   PARTICLE COMPONENTS
+══════════════════════════════════════════ */
 const Spark = ({ delay, x, y, size, duration, angle }) => (
     <motion.div
         className="absolute rounded-full"
         style={{
-            width: size,
-            height: size,
-            left: `${x}%`,
-            top: `${y}%`,
+            width: size, height: size,
+            left: `${x}%`, top: `${y}%`,
             background: 'radial-gradient(circle, rgba(80,200,255,1) 0%, rgba(30,144,255,0.8) 40%, transparent 70%)',
             boxShadow: `0 0 ${size * 2}px rgba(30,144,255,0.6)`,
         }}
         initial={{ opacity: 0, scale: 0 }}
         animate={{
-            opacity: [0, 1, 1, 0],
-            scale: [0, 1, 0.5, 0],
+            opacity: [0, 1, 1, 0], scale: [0, 1, 0.5, 0],
             x: [0, Math.cos(angle) * 120, Math.cos(angle) * 200],
             y: [0, Math.sin(angle) * 120, Math.sin(angle) * 200],
         }}
-        transition={{
-            duration: duration,
-            delay: delay,
-            repeat: Infinity,
-            repeatDelay: Math.random() * 3 + 1,
-            ease: 'easeOut',
-        }}
+        transition={{ duration, delay, repeat: Infinity, repeatDelay: Math.random() * 3 + 1, ease: 'easeOut' }}
     />
 );
 
-/* ── Floating ember particle ── */
 const Ember = ({ delay, startX, startY }) => (
     <motion.div
-        className="absolute w-1 h-1 rounded-full bg-reactor-cyan"
+        className="absolute w-1 h-1 rounded-full"
         style={{
-            left: `${startX}%`,
-            top: `${startY}%`,
-            boxShadow: '0 0 6px rgba(30,144,255,0.8), 0 0 12px rgba(80,200,255,0.4)',
+            left: `${startX}%`, top: `${startY}%`,
+            background: '#00f2ff',
+            boxShadow: '0 0 6px rgba(0,242,255,0.8)',
         }}
-        animate={{
-            y: [0, -200, -400],
-            x: [0, Math.random() * 60 - 30, Math.random() * 100 - 50],
-            opacity: [0, 0.8, 0],
-            scale: [0, 1, 0],
-        }}
-        transition={{
-            duration: 4 + Math.random() * 3,
-            delay: delay,
-            repeat: Infinity,
-            ease: 'easeOut',
-        }}
+        animate={{ y: [0, -300, -600], x: [0, Math.random() * 60 - 30, Math.random() * 100 - 50], opacity: [0, 0.9, 0], scale: [0, 1, 0] }}
+        transition={{ duration: 4 + Math.random() * 3, delay, repeat: Infinity, ease: 'easeOut' }}
     />
 );
 
-/* ── Generate spark data ── */
-const sparks = Array.from({ length: 30 }, (_, i) => ({
+/* Vertical data stream line */
+const DataStream = ({ x, delay, speed, chars }) => (
+    <motion.div
+        className="absolute top-0 pointer-events-none select-none"
+        style={{ left: `${x}%`, display: 'flex', flexDirection: 'column', gap: '4px' }}
+        initial={{ y: -200, opacity: 0 }}
+        animate={{ y: ['0%', '110%'], opacity: [0, 0.4, 0.4, 0] }}
+        transition={{ duration: speed, delay, repeat: Infinity, ease: 'linear' }}
+    >
+        {chars.map((c, i) => (
+            <span key={i} style={{ fontFamily: 'monospace', fontSize: '10px', color: 'rgba(0,242,255,0.6)', lineHeight: 1.4 }}>
+                {c}
+            </span>
+        ))}
+    </motion.div>
+);
+
+/* Radar sweep SVG */
+const RadarSweep = () => (
+    <svg
+        className="absolute pointer-events-none"
+        style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 700, height: 700, maxWidth: '90vw', maxHeight: '90vw' }}
+        viewBox="0 0 700 700"
+    >
+        {/* Background circles */}
+        {[280, 210, 140, 70].map((r, i) => (
+            <circle key={i} cx="350" cy="350" r={r}
+                fill="none" stroke="rgba(0,200,255,0.07)" strokeWidth="1" strokeDasharray="4 6" />
+        ))}
+        {/* Cross hairs */}
+        <line x1="350" y1="80" x2="350" y2="620" stroke="rgba(0,200,255,0.05)" strokeWidth="1" />
+        <line x1="80" y1="350" x2="620" y2="350" stroke="rgba(0,200,255,0.05)" strokeWidth="1" />
+
+        {/* Blip dots */}
+        {[[240, 290], [420, 200], [180, 410], [480, 430]].map(([cx, cy], i) => (
+            <motion.circle key={i} cx={cx} cy={cy} r="3"
+                fill="rgba(0,242,255,0.9)"
+                animate={{ opacity: [0, 1, 0], r: [2, 4, 2] }}
+                transition={{ duration: 1.5, delay: i * 0.8, repeat: Infinity }}
+            />
+        ))}
+    </svg>
+);
+
+/* ── Typewriter text hook ── */
+function useTypewriter(text, speed = 60, startDelay = 800) {
+    const [displayed, setDisplayed] = useState('');
+    useEffect(() => {
+        let i = 0;
+        const t = setTimeout(() => {
+            const iv = setInterval(() => {
+                setDisplayed(text.slice(0, ++i));
+                if (i >= text.length) clearInterval(iv);
+            }, speed);
+            return () => clearInterval(iv);
+        }, startDelay);
+        return () => clearTimeout(t);
+    }, [text, speed, startDelay]);
+    return displayed;
+}
+
+/* ═══════════════════════════════════════════
+   STATIC DATA
+═══════════════════════════════════════════ */
+const sparks = Array.from({ length: 20 }, (_, i) => ({
+    id: i, delay: Math.random() * 4,
+    x: 40 + Math.random() * 20, y: 35 + Math.random() * 20,
+    size: 2 + Math.random() * 4, duration: 1.5 + Math.random() * 2,
+    angle: Math.random() * Math.PI * 2,
+}));
+
+const embers = Array.from({ length: 20 }, (_, i) => ({
+    id: i, delay: Math.random() * 6,
+    startX: 5 + Math.random() * 90, startY: 60 + Math.random() * 40,
+}));
+
+const streamCols = Array.from({ length: 8 }, (_, i) => ({
     id: i,
+    x: 5 + i * 13,
     delay: Math.random() * 4,
-    x: 40 + Math.random() * 20,
-    y: 35 + Math.random() * 20,
-    size: 2 + Math.random() * 4,
-    duration: 1.5 + Math.random() * 2,
-    angle: (Math.random() * Math.PI * 2),
+    speed: 5 + Math.random() * 4,
+    chars: Array.from({ length: 14 }, () =>
+        String.fromCharCode(Math.random() > 0.5 ? 48 + Math.floor(Math.random() * 10) : 65 + Math.floor(Math.random() * 26))
+    ),
 }));
 
-const embers = Array.from({ length: 25 }, (_, i) => ({
-    id: i,
-    delay: Math.random() * 6,
-    startX: 10 + Math.random() * 80,
-    startY: 60 + Math.random() * 40,
-}));
+const hudReadouts = [
+    { label: 'REACTOR CORE', value: '✓ ONLINE', color: '#00f2ff' },
+    { label: 'PWR OUTPUT', value: '3.0 GW', color: '#7cffb2' },
+    { label: 'SHIELD STATUS', value: 'ACTIVE', color: '#00f2ff' },
+    { label: 'AI SUBSYS', value: 'JARVIS', color: '#ffcc00' },
+];
 
+/* ── Sound Dialog ── */
+const SoundDialog = ({ onYes, onNo }) => (
+    <motion.div className="sound-dialog-overlay"
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+        transition={{ duration: 0.3 }}
+    >
+        <motion.div className="sound-dialog-box"
+            initial={{ scale: 0.85, opacity: 0, y: 30 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.85, opacity: 0, y: 30 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        >
+            <div className="sound-dialog-icon">🔊</div>
+            <h3 className="sound-dialog-title">INITIALIZE SOUND SYSTEM?</h3>
+            <p className="sound-dialog-sub">Enable audio effects for the full experience</p>
+            <div className="sound-dialog-buttons">
+                <motion.button className="sound-btn sound-btn-yes" onClick={onYes}
+                    whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>YES — ENABLE</motion.button>
+                <motion.button className="sound-btn sound-btn-no" onClick={onNo}
+                    whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>NO — SKIP</motion.button>
+            </div>
+        </motion.div>
+    </motion.div>
+);
+
+/* ══════════════════════════════════════════
+   MAIN COMPONENT
+══════════════════════════════════════════ */
 const IntroPage = () => {
     const navigate = useNavigate();
-    const [phase, setPhase] = useState('intro'); // 'intro' | 'zooming' | 'flash'
+    const [showDialog, setShowDialog] = useState(false);
     const [showContent, setShowContent] = useState(false);
-    const [imgLoaded, setImgLoaded] = useState(false);
-    const audioRef = useRef(null);
+    
 
     useEffect(() => {
-        // Pre-load the reactor image for smooth transition
-        const img = new Image();
-        img.src = arcReactorImg;
-        img.onload = () => setImgLoaded(true);
+        if (sessionStorage.getItem('hasSeenIntro')) { navigate('/home'); return; }
+        const t = setTimeout(() => setShowContent(true), 400);
+        return () => clearTimeout(t);
+    }, [navigate]);
 
-        // Pre-load the audio so it plays instantly on click
-        audioRef.current = new Audio(jarvisSfx);
-        audioRef.current.volume = 0.85;
-
-        return () => {
-            if (audioRef.current) {
-                audioRef.current.pause();
-                audioRef.current = null;
-            }
-        };
-    }, []);
-
-    useEffect(() => {
-        // If user already seen intro, redirect to home
-        if (sessionStorage.getItem('hasSeenIntro')) {
-            navigate('/home');
-            return;
-        }
-
-        if (imgLoaded) {
-            const showTimer = setTimeout(() => setShowContent(true), 400);
-            return () => clearTimeout(showTimer);
-        }
-    }, [imgLoaded, navigate]);
-
-    const handleEnter = useCallback(() => {
-        if (phase !== 'intro' || !imgLoaded) return;
-
-        // Set session storage flag
+    const handleActivate = useCallback(() => setShowDialog(true), []);
+    const goToLoading = useCallback((withSound) => {
         sessionStorage.setItem('hasSeenIntro', 'true');
-
-        // Play JARVIS sound immediately on activate
-        if (audioRef.current) {
-            audioRef.current.currentTime = 0;
-            audioRef.current.play().catch(() => { });
-        }
-        setPhase('zooming');
-        // After zoom completes, flash and navigate
-        setTimeout(() => setPhase('flash'), 1400);
-        setTimeout(() => navigate('/home'), 1900);
-    }, [phase, navigate, imgLoaded]);
-
-    if (!imgLoaded) return <div className="fixed inset-0 bg-[#020a18]" />;
+        navigate('/loading', { state: { withSound } });
+    }, [navigate]);
 
     return (
         <div className="fixed inset-0 z-50 overflow-hidden" style={{ background: '#020a18' }}>
-            <AnimatePresence mode="wait">
-                {/* ═══ MAIN INTRO SCREEN ═══ */}
-                {phase === 'intro' && (
-                    <motion.div
-                        key="intro"
-                        className="absolute inset-0 flex flex-col items-center justify-center"
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.5 }}
+
+            {/* ── Background ── */}
+            <div className="absolute inset-0" style={{
+                backgroundImage: `url(${Background})`,
+                backgroundSize: 'cover', backgroundPosition: 'center',
+                filter: 'brightness(0.55) saturate(1.4) contrast(1.1)',
+            }} />
+            <div className="absolute inset-0" style={{
+                background: 'linear-gradient(180deg, rgba(2,10,24,0.45) 0%, rgba(2,10,24,0.1) 30%, rgba(2,10,24,0.1) 70%, rgba(2,10,24,0.7) 100%)',
+            }} />
+
+            {/* ── Data streams ── */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                {streamCols.map(s => <DataStream key={s.id} {...s} />)}
+            </div>
+
+            {/* ── Radar / Arc reactor rings ── */}
+            <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+                <RadarSweep />
+            </div>
+
+            {/* ── Concentric pulse rings ── */}
+            {[360, 260, 180].map((size, i) => (
+                <motion.div key={i}
+                    className="absolute rounded-full border pointer-events-none"
+                    style={{
+                        width: size, height: size,
+                        top: '50%', left: '50%',
+                        transform: 'translate(-50%,-50%)',
+                        borderColor: `rgba(0,200,255,${0.06 + i * 0.04})`,
+                    }}
+                    animate={{ scale: [1, 1.07 + i * 0.02, 1], opacity: [0.4, 0.9, 0.4] }}
+                    transition={{ duration: 3 + i * 0.8, repeat: Infinity, ease: 'easeInOut', delay: i * 0.5 }}
+                />
+            ))}
+
+            {/* ── Sparks ── */}
+            <div className="absolute inset-0 pointer-events-none">
+                {sparks.map(s => <Spark key={s.id} {...s} />)}
+            </div>
+
+            {/* ── Embers ── */}
+            <div className="absolute inset-0 pointer-events-none">
+                {embers.map(e => <Ember key={e.id} {...e} />)}
+            </div>
+
+            {/* ── Scanning line (horizontal sweep) ── */}
+            <motion.div className="absolute w-full h-px pointer-events-none"
+                style={{
+                    background: 'linear-gradient(90deg, transparent 5%, rgba(0,220,255,0.35) 30%, rgba(0,242,255,0.6) 50%, rgba(0,220,255,0.35) 70%, transparent 95%)',
+                    boxShadow: '0 0 18px rgba(0,200,255,0.3)',
+                }}
+                animate={{ y: [-200, 800] }}
+                transition={{ duration: 5, repeat: Infinity, ease: 'linear', repeatDelay: 2 }}
+            />
+
+            {/* ── Top typewriter title ── */}
+            <motion.div
+                className="absolute top-0 left-0 right-0 flex justify-center pt-7 z-10 pointer-events-none"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
+            >
+                <span style={{
+                    fontFamily: 'Orbitron, sans-serif',
+                    fontSize: 'clamp(0.55rem, 1.4vw, 0.85rem)',
+                    letterSpacing: '0.35em',
+                    color: 'rgba(0,200,255,0.7)',
+                    textShadow: '0 0 12px rgba(0,200,255,0.4)',
+                }}>
+                    
+                    <motion.span animate={{ opacity: [1, 0] }} transition={{ duration: 0.6, repeat: Infinity }}>_</motion.span>
+                </span>
+            </motion.div>
+
+            {/* ── HUD readouts (left side) ── */}
+            <motion.div
+                className="absolute left-6 top-1/2 -translate-y-1/2 flex flex-col gap-4 pointer-events-none z-10 hidden md:flex"
+                initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.2, duration: 0.6 }}
+            >
+                {hudReadouts.map((r, i) => (
+                    <motion.div key={i}
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                        transition={{ delay: 1.4 + i * 0.3 }}
+                        style={{ fontFamily: 'monospace' }}
                     >
-                        {/* ── Background: attractive ── */}
-                        <div
-                            className="absolute inset-0"
-                            style={{
-                                backgroundImage: `url(${Background})`,
-                                backgroundSize: 'cover',
-                                backgroundPosition: 'center',
-                                backgroundRepeat: 'no-repeat',
-                                filter: 'brightness(0.6) saturate(1.5) contrast(1.1)',
-                            }}
-                        />
-                        {/* Subtle gradient overlay */}
-                        <div
-                            className="absolute inset-0"
-                            style={{
-                                background: 'linear-gradient(180deg, rgba(2,10,24,0.3) 0%, transparent 15%, transparent 80%, rgba(2,10,24,0.35) 100%)',
-                            }}
-                        />
-
-                        {/* ── Spark effects ── */}
-                        <div className="absolute inset-0 pointer-events-none">
-                            {sparks.map((s) => (
-                                <Spark key={s.id} {...s} />
-                            ))}
-                        </div>
-
-                        {/* ── Floating embers ── */}
-                        <div className="absolute inset-0 pointer-events-none">
-                            {embers.map((e) => (
-                                <Ember key={e.id} {...e} />
-                            ))}
-                        </div>
-
-                        {/* ── Scanning line ── */}
-                        <motion.div
-                            className="absolute w-full h-px pointer-events-none"
-                            style={{
-                                background: 'linear-gradient(90deg, transparent 5%, rgba(80,200,255,0.4) 30%, rgba(80,200,255,0.6) 50%, rgba(80,200,255,0.4) 70%, transparent 95%)',
-                                boxShadow: '0 0 20px rgba(30,144,255,0.3)',
-                            }}
-                            animate={{ y: [-400, 500] }}
-                            transition={{ duration: 4, repeat: Infinity, ease: 'linear', repeatDelay: 1.5 }}
-                        />
-
-                        {/* ── HUD circles ── */}
-                        <motion.div
-                            className="absolute w-[500px] h-[500px] md:w-[700px] md:h-[700px] rounded-full border border-reactor-blue/10"
-                            animate={{ scale: [1, 1.06, 1], opacity: [0.06, 0.18, 0.06] }}
-                            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                        />
-
-                        {/* ── Activate Button ── */}
-                        <div className="absolute bottom-10 left-0 right-0 flex justify-center z-10">
-                            <motion.button
-                                onClick={handleEnter}
-                                className="group relative px-20 py-6 rounded-full border-4 border-reactor-blue/50 bg-reactor-blue/8 backdrop-blur-sm font-orbitron text-xl tracking-[0.5em] text-reactor-light/90 uppercase cursor-pointer overflow-hidden transition-all duration-500 hover:border-reactor-cyan/80 hover:bg-reactor-blue/15 hover:text-reactor-glow hover:shadow-[0_0_60px_rgba(30,144,255,0.55),0_0_120px_rgba(30,144,255,0.2)]"
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: 0.3 }}
-                                whileHover={{ scale: 1.06 }}
-                                whileTap={{ scale: 0.94 }}
-                            >
-                                <span className="relative z-10">ACTIVATE</span>
-                                <div className="absolute inset-0 animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                            </motion.button>
-                        </div>
-
-                        {/* ── Corner HUD ── */}
-                        <div className="absolute top-5 left-5 w-10 h-10 border-t-2 border-l-2 border-reactor-blue/25" />
-                        <div className="absolute top-5 right-5 w-10 h-10 border-t-2 border-r-2 border-reactor-blue/25" />
-                        <div className="absolute bottom-5 left-5 w-10 h-10 border-b-2 border-l-2 border-reactor-blue/25" />
-                        <div className="absolute bottom-5 right-5 w-10 h-10 border-b-2 border-r-2 border-reactor-blue/25" />
-
-                        {/* HUD labels */}
-                        <motion.span
-                            className="absolute top-8 left-14 font-rajdhani text-[9px] tracking-[0.2em] text-reactor-blue/20 uppercase z-10"
-                            initial={{ opacity: 0 }}
-                            animate={showContent ? { opacity: 1 } : {}}
-                            transition={{ delay: 3.2 }}
-                        >
-                            SYS:ONLINE
-                        </motion.span>
+                        <div style={{ fontSize: '8px', color: 'rgba(0,200,255,0.4)', letterSpacing: '0.2em' }}>{r.label}</div>
+                        <div style={{ fontSize: '11px', color: r.color, textShadow: `0 0 8px ${r.color}`, letterSpacing: '0.1em' }}>{r.value}</div>
                     </motion.div>
-                )}
+                ))}
+            </motion.div>
 
-                {/* ═══ ZOOM TRANSITION ═══ */}
-                {phase === 'zooming' && (
-                    <motion.div
-                        key="zooming"
-                        className="absolute inset-0 flex items-center justify-center"
-                        style={{ background: '#020a18' }}
-                        initial={{ opacity: 1 }}
+            {/* ── RIGHT: angle/coordinate readout ── */}
+            <motion.div
+                className="absolute right-6 top-1/2 -translate-y-1/2 flex flex-col gap-3 pointer-events-none z-10 hidden md:flex items-end"
+                initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.5, duration: 0.6 }}
+            >
+                {['26.9124° N', '80.9422° E', 'ALT: 320m', 'TEMP: 28°C'].map((val, i) => (
+                    <motion.div key={i}
+                        style={{ fontFamily: 'monospace', fontSize: '10px', color: 'rgba(0,200,255,0.45)', letterSpacing: '0.15em' }}
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                        transition={{ delay: 1.6 + i * 0.25 }}
                     >
-                        {/* Background stays */}
-                        <div
-                            className="absolute inset-0"
-                            style={{
-                                backgroundImage: `url(${Background})`,
-                                backgroundSize: 'cover',
-                                backgroundPosition: 'center',
-                                filter: 'blur(3px) brightness(0.2)',
-                            }}
-                        />
-
-                        {/* Reactor zooms toward viewer */}
-                        <motion.img
-                            src={arcReactorImg}
-                            alt=""
-                            className="rounded-full object-cover select-none"
-                            style={{
-                                width: '320px',
-                                height: '320px',
-                            }}
-                            initial={{
-                                scale: 1,
-                                opacity: 1,
-                                filter: 'drop-shadow(0 0 40px rgba(30,144,255,0.8)) drop-shadow(0 0 80px rgba(30,144,255,0.4))',
-                            }}
-                            animate={{
-                                scale: 12,
-                                opacity: [1, 1, 0.8, 0],
-                                filter: [
-                                    'drop-shadow(0 0 40px rgba(30,144,255,0.8)) drop-shadow(0 0 80px rgba(30,144,255,0.4))',
-                                    'drop-shadow(0 0 80px rgba(30,144,255,1)) drop-shadow(0 0 150px rgba(80,200,255,0.8))',
-                                    'drop-shadow(0 0 120px rgba(200,230,255,1)) drop-shadow(0 0 200px rgba(80,200,255,1))',
-                                    'drop-shadow(0 0 0px transparent)',
-                                ],
-                                rotate: [0, 180],
-                            }}
-                            transition={{
-                                duration: 1.4,
-                                ease: [0.2, 0.8, 0.3, 1],
-                            }}
-                            draggable={false}
-                        />
-
-                        {/* Radial spark burst during zoom */}
-                        {Array.from({ length: 16 }).map((_, i) => (
-                            <motion.div
-                                key={`burst-${i}`}
-                                className="absolute w-1.5 h-8 rounded-full"
-                                style={{
-                                    background: 'linear-gradient(to bottom, rgba(80,200,255,0.9), transparent)',
-                                    transformOrigin: 'center 200px',
-                                    transform: `rotate(${i * 22.5}deg)`,
-                                }}
-                                initial={{ opacity: 0, scaleY: 0 }}
-                                animate={{
-                                    opacity: [0, 1, 0],
-                                    scaleY: [0, 3, 6],
-                                }}
-                                transition={{
-                                    duration: 1,
-                                    delay: 0.3 + i * 0.02,
-                                    ease: 'easeOut',
-                                }}
-                            />
-                        ))}
+                        {val}
                     </motion.div>
-                )}
+                ))}
+            </motion.div>
 
-                {/* ═══ WHITE FLASH ═══ */}
-                {phase === 'flash' && (
-                    <motion.div
-                        key="flash"
-                        className="absolute inset-0"
-                        style={{ background: 'white' }}
-                        initial={{ opacity: 1 }}
-                        animate={{ opacity: 0 }}
-                        transition={{ duration: 0.5, ease: 'easeOut' }}
-                    />
+            {/* ── ACTIVATE BUTTON ── */}
+            <div className="absolute bottom-10 left-0 right-0 flex justify-center z-10 px-4">
+                <motion.button
+                    onClick={handleActivate}
+                    className="activate-btn"
+                    initial={{ opacity: 0, y: 24 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.5 }}
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                >
+                    <span className="activate-btn-text">BOOT THE ARC SYSTEM</span>
+                    <span className="activate-btn-glow" />
+                </motion.button>
+            </div>
+
+            {/* ── Corner HUD brackets (animated) ── */}
+            {[
+                'top-5 left-5 border-t-2 border-l-2',
+                'top-5 right-5 border-t-2 border-r-2',
+                'bottom-5 left-5 border-b-2 border-l-2',
+                'bottom-5 right-5 border-b-2 border-r-2',
+            ].map((cls, i) => (
+                <motion.div key={i}
+                    className={`absolute w-12 h-12 border-reactor-blue/30 ${cls}`}
+                    animate={{ opacity: [0.3, 0.8, 0.3] }}
+                    transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.4 }}
+                />
+            ))}
+
+            {/* ── SYS:ONLINE label ── */}
+            {showContent && (
+                <motion.span
+                    className="absolute top-8 left-16 z-10 pointer-events-none"
+                    style={{ fontFamily: 'monospace', fontSize: '9px', letterSpacing: '0.25em', color: 'rgba(0,200,255,0.3)', textTransform: 'uppercase' }}
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}
+                >
+                    SYS:ONLINE
+                </motion.span>
+            )}
+
+            {/* ── Sound Dialog ── */}
+            <AnimatePresence>
+                {showDialog && (
+                    <SoundDialog onYes={() => goToLoading(true)} onNo={() => goToLoading(false)} />
                 )}
             </AnimatePresence>
         </div>

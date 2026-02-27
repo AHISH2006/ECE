@@ -1,199 +1,355 @@
-.loading-screen {
+.loading-screen.circuit-hud {
     position: fixed;
     inset: 0;
     z-index: 9999;
-    background: #000;
+    background: #00020a;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    color: #00f2ff;
     font-family: 'Orbitron', sans-serif;
 }
 
-.reactor-bg-overlay {
+.pcb-background-canvas {
     position: absolute;
     inset: 0;
-    background:
-        radial-gradient(circle at center, rgba(0, 229, 255, 0.08) 0%, transparent 70%),
-        rgba(2, 10, 24, 1);
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
     z-index: 1;
 }
 
-.loading-hud {
+.hud-grid-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(rgba(0, 242, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 242, 255, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* ─── CIRCUIT FRAME ─── */
+.hud-frame-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.frame-border {
+    fill: none;
+    stroke: rgba(0, 242, 255, 0.25);
+    stroke-width: 2;
+}
+
+/* ─── CONTENT LAYOUT ─── */
+.hud-content-wrapper {
     position: relative;
     z-index: 10;
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* ─── CENTRAL HUD ─── */
+.hud-center-target {
+    position: relative;
+    width: min(85vw, 600px);
+    height: min(85vw, 600px);
+}
+
+.target-svg {
     width: 100%;
     height: 100%;
 }
 
-.reactor-container {
-    position: relative;
-    width: 500px;
-    height: 500px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.hud-ring {
+    fill: none;
+    stroke: rgba(0, 242, 255, 0.3);
+    stroke-width: 2;
+    transform-origin: center;
 }
 
-.reactor-layer {
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    pointer-events: none;
+.dash-thick {
+    stroke: rgba(0, 242, 255, 0.1);
+    stroke-width: 15;
+    stroke-dasharray: 2 15;
 }
 
-.layer-1 {
-    border: 2px dashed rgba(0, 229, 255, 0.1);
-    transform: scale(1.1);
+.segment-ring {
+    stroke: rgba(0, 242, 255, 0.8);
+    stroke-width: 4;
+    filter: drop-shadow(0 0 10px #00f2ff);
 }
 
-.layer-2 {
-    border: 3px double rgba(0, 229, 255, 0.15);
-    transform: scale(0.9);
+.center-bracket {
+    fill: none;
+    stroke: #00f2ff;
+    stroke-width: 3;
+    filter: drop-shadow(0 0 8px #00f2ff);
 }
 
-.layer-3 {
-    border: 1px solid rgba(0, 229, 255, 0.2);
-    border-top: 1px solid transparent;
-    transform: scale(0.7);
-}
-
-.reactor-core-wrap {
-    position: relative;
-    width: 320px;
-    height: 320px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    overflow: hidden;
-    box-shadow: 0 0 60px rgba(0, 229, 255, 0.3);
-}
-
-.reactor-img {
-    width: 110%;
-    height: 110%;
-    object-fit: cover;
-    filter: brightness(1.2) contrast(1.1);
-}
-
-.reactor-glow {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, transparent 30%, rgba(0, 229, 255, 0.15) 100%);
-    mix-blend-mode: overlay;
-    animation: pulseGlow 3s ease-in-out infinite;
-}
-
-@keyframes pulseGlow {
-
-    0%,
-    100% {
-        opacity: 0.3;
-    }
-
-    50% {
-        opacity: 0.8;
-    }
-}
-
-.progress-counter {
+.progress-display {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    z-index: 20;
-    color: #fff;
-    text-shadow: 0 0 10px rgba(0, 229, 255, 0.8), 0 0 20px rgba(0, 229, 255, 0.4);
 }
 
-.progress-num {
-    font-size: 3.5rem;
+.progress-value .num {
+    font-size: 5rem;
     font-weight: 900;
-    margin-right: -4px;
+    text-shadow: 0 0 30px #00f2ff, 0 0 60px rgba(0, 242, 255, 0.4);
 }
 
-.progress-unit {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: rgba(0, 229, 255, 0.8);
+.progress-value .unit {
+    font-size: 1.5rem;
+    opacity: 0.7;
+    margin-left: 5px;
 }
 
-.progress-label {
-    font-size: 0.6rem;
-    letter-spacing: 0.4em;
-    color: rgba(0, 229, 255, 0.6);
-    margin-top: -4px;
-}
-
-/* Side Stats */
-.hud-info-left,
-.hud-info-right {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    font-family: 'Rajdhani', sans-serif;
-}
-
-.hud-info-left {
-    left: 5%;
-}
-
-.hud-info-right {
-    right: 5%;
-    text-align: right;
-}
-
-.hud-stat {
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    color: rgba(0, 229, 255, 0.4);
-    border-bottom: 1px solid rgba(0, 229, 255, 0.1);
-    padding-bottom: 4px;
-}
-
-.loading-footer-text {
-    position: absolute;
-    bottom: 40px;
+.loading-tag {
     font-size: 0.7rem;
-    letter-spacing: 0.3em;
-    color: rgba(0, 229, 255, 0.4);
-    z-index: 10;
+    letter-spacing: 0.5em;
+    opacity: 0.7;
+    margin-top: -5px;
+    animation: blinkGlow 1.5s step-end infinite;
 }
 
-.scanline {
+@keyframes blinkGlow {
+
+    0%,
+    100% {
+        opacity: 0.9;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}
+
+.scan-line-horizontal {
     position: fixed;
-    top: 0;
+    top: -10%;
     left: 0;
     width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, transparent 50%, rgba(0, 229, 255, 0.02) 50%);
-    background-size: 100% 4px;
+    height: 2px;
+    background: #00f2ff;
+    opacity: 0.4;
+    box-shadow: 0 0 25px #00f2ff;
     z-index: 100;
+    animation: scanVertical 4s linear infinite;
+}
+
+@keyframes scanVertical {
+    0% {
+        top: -5%;
+    }
+
+    100% {
+        top: 105%;
+    }
+}
+
+/* RESPONSIVENESS */
+@media (max-width: 600px) {
+    .progress-value .num {
+        font-size: 3.5rem;
+    }
+}
+
+/* ═══════════════════════════════════════
+   ACTIVATE BUTTON (IntroPage)
+═══════════════════════════════════════ */
+.activate-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(12px, 2vw, 16px) clamp(28px, 5vw, 70px);
+
+    /* Sharp rectangular — matches reference image */
+    border-radius: 3px;
+    border: 2px solid rgba(0, 210, 255, 0.8);
+
+    /* Dark background like reference */
+    background: rgba(0, 6, 18, 0.85);
+    backdrop-filter: blur(12px);
+
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(0.75rem, 1.6vw, 1rem);
+    font-weight: 700;
+    letter-spacing: 0.4em;
+
+    /* Cyan glowing text */
+    color: rgba(0, 220, 255, 0.95);
+    text-shadow: 0 0 10px rgba(0, 210, 255, 0.7);
+
+    cursor: pointer;
+    overflow: visible;
+    width: min(60vw, 360px);
+    text-align: center;
+
+    /* Subtle cyan outer glow at rest */
+    box-shadow:
+        0 0 12px rgba(0, 200, 255, 0.12),
+        inset 0 0 8px rgba(0, 200, 255, 0.04);
+
+    transition: background 0.3s, border-color 0.3s, box-shadow 0.3s,
+        color 0.3s, text-shadow 0.3s;
+}
+
+.activate-btn:hover {
+    background: rgba(0, 25, 55, 0.92);
+    border-color: rgba(0, 242, 255, 1);
+    color: #ffffff;
+    text-shadow:
+        0 0 20px rgba(0, 242, 255, 1),
+        0 0 50px rgba(0, 180, 255, 0.5);
+    box-shadow:
+        0 0 36px rgba(0, 210, 255, 0.55),
+        0 0 80px rgba(0, 180, 255, 0.18),
+        inset 0 0 16px rgba(0, 200, 255, 0.07);
+}
+
+/* Label */
+.activate-btn-text {
+    position: relative;
+    z-index: 2;
+    font-family: 'Share Tech Mono', 'Courier New', monospace;
+    font-size: clamp(0.85rem, 2.2vw, 1.2rem);
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+}
+
+.activate-btn-glow {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(0, 200, 255, 0.15), transparent);
+    background-size: 200% 100%;
+    opacity: 0;
+    transition: opacity 0.4s;
+    animation: shimmer 2.5s linear infinite;
     pointer-events: none;
+    z-index: 1;
 }
 
-@media (max-width: 900px) {
-    .reactor-container {
-        transform: scale(0.7);
-    }
-
-    .hud-info-left,
-    .hud-info-right {
-        display: none;
-    }
+.activate-btn:hover .activate-btn-glow {
+    opacity: 1;
 }
 
-@media (max-width: 500px) {
-    .reactor-container {
-        transform: scale(0.55);
-    }
+/* ═══════════════════════════════════════
+   SOUND INITIALIZATION DIALOG
+═══════════════════════════════════════ */
+.sound-dialog-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 4, 16, 0.72);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 16px;
+}
+
+.sound-dialog-box {
+    background: linear-gradient(145deg, rgba(5, 21, 48, 0.96), rgba(2, 10, 24, 0.98));
+    border: 1px solid rgba(30, 144, 255, 0.4);
+    border-radius: 20px;
+    padding: clamp(28px, 5vw, 56px) clamp(24px, 6vw, 64px);
+    max-width: min(480px, 92vw);
+    width: 100%;
+    text-align: center;
+    box-shadow:
+        0 0 80px rgba(30, 144, 255, 0.2),
+        0 32px 80px rgba(0, 0, 0, 0.6),
+        inset 0 0 40px rgba(30, 144, 255, 0.04);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+.sound-dialog-icon {
+    font-size: clamp(2rem, 5vw, 3rem);
+    filter: drop-shadow(0 0 16px rgba(30, 144, 255, 0.9));
+    margin-bottom: 4px;
+}
+
+.sound-dialog-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(0.8rem, 2.2vw, 1.05rem);
+    letter-spacing: 0.2em;
+    color: #78c8ff;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 0 0 20px rgba(30, 144, 255, 0.5);
+}
+
+.sound-dialog-sub {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: clamp(0.8rem, 2vw, 0.95rem);
+    color: rgba(180, 220, 255, 0.55);
+    letter-spacing: 0.06em;
+    margin: 0;
+    max-width: 320px;
+}
+
+.sound-dialog-buttons {
+    display: flex;
+    gap: 14px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+.sound-btn {
+    flex: 1;
+    min-width: 120px;
+    padding: clamp(10px, 2vw, 14px) clamp(18px, 4vw, 36px);
+    border-radius: 9999px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(0.65rem, 1.5vw, 0.78rem);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.sound-btn-yes {
+    background: rgba(30, 144, 255, 0.18);
+    border-color: rgba(30, 144, 255, 0.65);
+    color: #78c8ff;
+    box-shadow: 0 0 20px rgba(30, 144, 255, 0.2);
+}
+
+.sound-btn-yes:hover {
+    background: rgba(30, 144, 255, 0.32);
+    border-color: rgba(80, 180, 255, 0.9);
+    color: #b4dcff;
+    box-shadow: 0 0 40px rgba(30, 144, 255, 0.5);
+}
+
+.sound-btn-no {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(180, 220, 255, 0.2);
+    color: rgba(180, 220, 255, 0.45);
+}
+
+.sound-btn-no:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(180, 220, 255, 0.45);
+    color: rgba(180, 220, 255, 0.8);
 }

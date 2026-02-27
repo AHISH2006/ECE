@@ -23,7 +23,7 @@
 /* ── Page wrapper ── */
 .hp-page {
     min-height: 100vh;
-    background-color: var(--bg);
+    background-color: transparent;
     font-family: 'Orbitron', sans-serif;
     overflow-x: hidden;
     position: relative;
@@ -219,7 +219,7 @@
     font-weight: 900;
     letter-spacing: 0.04em;
     color: #ffd700;
-    text-shadow: 0 0 30px rgba(255, 215, 0, 0.6), 0 0 80px rgba(255, 165, 0, 0.3);
+    text-shadow: 0 0 30px rgba(255, 215, 0, 0.6),w 0 0 80px rgba(255, 165, 0, 0.3);
     margin: 8px 0 0;
     line-height: 1.1;
 }
@@ -1451,7 +1451,7 @@
     line-height: 1.1;
     margin: 0;
     /* gold gradient like the poster */
-    background: linear-gradient(135deg, #ffd700 0%, #ff9d00 40%, #ffd700 70%, #fff5a0 100%);
+    background: linear-gradient(135deg, #3147d8 0%, #16c7f4 40%, #7f4ced 70%, #0cdfee 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

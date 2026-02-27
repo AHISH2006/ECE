@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import IntroPage from './pages/IntroPage';
@@ -8,35 +8,37 @@ import NonTechnicalPage from './pages/NonTechnicalPage';
 import RegisterPage from './pages/RegisterPage';
 import ContactPage from './pages/ContactPage';
 import LoadingPage from './components/LoadingPage';
-import './index.css';
+import CircuitBackground from './components/CircuitBackground';
 import PageTransition from './components/PageTransition';
+import './index.css';
 
 function AnimatedRoutes() {
   const location = useLocation();
+  // Hide global circuit background on Intro (/) and Loading pages
+  const hideBackground = ['/', '/loading'].includes(location.pathname);
 
   return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<PageTransition><IntroPage /></PageTransition>} />
-        <Route path="/home" element={<PageTransition><HomePage /></PageTransition>} />
-        <Route path="/technical" element={<PageTransition><TechnicalPage /></PageTransition>} />
-        <Route path="/non-technical" element={<PageTransition><NonTechnicalPage /></PageTransition>} />
-        <Route path="/register" element={<PageTransition><RegisterPage /></PageTransition>} />
-        <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
-      </Routes>
-    </AnimatePresence>
+    <>
+      {!hideBackground && <CircuitBackground opacity={0.8} />}
+
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          {/* IntroPage is the entry point — no shutter, no background */}
+          <Route path="/" element={<PageTransition skip={true}><IntroPage /></PageTransition>} />
+          {/* Loading page — reads sound preference from navigation state */}
+          <Route path="/loading" element={<PageTransition skip={true}><LoadingPage /></PageTransition>} />
+          <Route path="/home" element={<PageTransition><HomePage /></PageTransition>} />
+          <Route path="/technical" element={<PageTransition><TechnicalPage /></PageTransition>} />
+          <Route path="/non-technical" element={<PageTransition><NonTechnicalPage /></PageTransition>} />
+          <Route path="/register" element={<PageTransition><RegisterPage /></PageTransition>} />
+          <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
+        </Routes>
+      </AnimatePresence>
+    </>
   );
 }
 
 function App() {
-  // Check if user has already seen the intro in this session
-  const hasSeenIntro = sessionStorage.getItem('hasSeenIntro');
-  const [isLoading, setIsLoading] = useState(!hasSeenIntro);
-
-  if (isLoading && !hasSeenIntro) {
-    return <LoadingPage onComplete={() => setIsLoading(false)} />;
-  }
-
   return (
     <Router>
       <AnimatedRoutes />

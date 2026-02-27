@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import CircuitBackground from '../components/CircuitBackground';
+// import CircuitBackground from '../components/CircuitBackground'; (Moved to App.jsx)
 import Navbar from '../components/Navbar';
 import TypewriterText from '../components/TypewriterText';
 import '../styles/HomePage.css';
@@ -53,7 +53,7 @@ const HomePage = () => {
 
     return (
         <div className="hp-page">
-            <CircuitBackground />
+            {/* <CircuitBackground /> (Now global in App.jsx) */}
             <div className="circuit-overlay" />
             <div className="scan-line" />
             <div className="hud-corner tl" /><div className="hud-corner tr" />
