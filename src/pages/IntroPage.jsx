@@ -102,14 +102,23 @@ const IntroPage = () => {
     }, []);
 
     useEffect(() => {
+        // If user already seen intro, redirect to home
+        if (sessionStorage.getItem('hasSeenIntro')) {
+            navigate('/home');
+            return;
+        }
+
         if (imgLoaded) {
             const showTimer = setTimeout(() => setShowContent(true), 400);
             return () => clearTimeout(showTimer);
         }
-    }, [imgLoaded]);
+    }, [imgLoaded, navigate]);
 
     const handleEnter = useCallback(() => {
         if (phase !== 'intro' || !imgLoaded) return;
+
+        // Set session storage flag
+        sessionStorage.setItem('hasSeenIntro', 'true');
 
         // Play JARVIS sound immediately on activate
         if (audioRef.current) {
