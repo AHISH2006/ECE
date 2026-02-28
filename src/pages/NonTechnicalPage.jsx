@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import TypewriterText from '../components/TypewriterText';
 import CircuitBackground from '../components/CircuitBackground';
+import GlowingEventCard from '../components/GlowingEventCard';
+import CardFlowSlider from '../components/CardFlowSlider';
 import '../styles/TechnicalPage.css';
 
 // Poster imports
@@ -16,36 +18,39 @@ import posterCharades from '../assets/poster_charades.png';
 const EVENTS = [
     {
         number: '01',
-        title: 'Arc Pitch Arena',
+        title: 'Ad-Mad (Ad-Mode)',
         icon: '📣',
         tag: 'Creative',
         accent: '#ff3d8f',
         poster: posterAdmad,
-        description: 'Create a creative and humorous advertisement for a product given on the spot. Teams showcase creativity, teamwork, and presentation skills in a high-energy skit!',
-        highlights: ['On-Spot Product', 'Team Event', 'Creative Skit', 'Audience Judging'],
-        rules: ['Team of 3–5 members', '10-minute prep time', 'Max 5-minute skit', 'Props allowed'],
+        description: 'Create a creative, hilarious, and engaging advertisement based on an "on the spot" topic.',
+        highlights: ['On-Spot Topic', 'Team Event', 'Creative Advertisement', 'No Materials Required'],
+        rules: ['Team of 3-4 members', '10 minutes prep time', 'Max 5 minutes performance time'],
+        coordinators: 'Anandha Kumar, Preethi M',
     },
     {
         number: '02',
-        title: ' Signal Sprint ',
+        title: 'JAM (Just A Minute)',
         icon: '🎙️',
         tag: 'Speaking',
         accent: '#ff8800',
         poster: posterJam,
-        description: 'Just A Minute — speak on a topic for exactly one minute without hesitation, repetition, or deviation. Quick wit and confidence win the day!',
-        highlights: ['1-Minute Format', 'No Repetition', 'No Hesitation', 'Quick Thinking'],
-        rules: ['Individual event', 'Topic drawn randomly', 'Judges can challenge', 'Points for fluency & content'],
+        description: 'A solo performance speaking event on a random topic. Think fast and speak clearly!',
+        highlights: ['Solo Performance', 'Random Topic', 'Quick Thinking', 'No Materials Required'],
+        rules: ['Individual event', '1 minute prep time', '1 minute performance time'],
+        coordinators: 'Rajnivas',
     },
     {
         number: '03',
-        title: 'Cyber Circuit Clash ',
-        icon: '🎮',
-        tag: 'Gaming',
-        accent: '#00ff88',
-        poster: posterEsports,
-        description: 'Compete in an exciting gaming tournament featuring popular titles. Demonstrate reflexes, strategy, and gaming prowess in knockout rounds!',
-        highlights: ['Popular Titles', 'Knockout Rounds', 'Team & Solo', 'Live Streaming'],
-        rules: ['Solo / Team of 2–5', 'Game announced on-site', 'Double elimination', 'Fair play policy enforced'],
+        title: 'Dumb Charades',
+        icon: '🤫',
+        tag: 'Team Fun',
+        accent: '#bf00ff',
+        poster: posterCharades,
+        description: 'Act out 10 given photos for your team to guess. One person acts at a time, but person swapping is permitted.',
+        highlights: ['10 Photos to Act', 'Team Format', 'Person Swapping Allowed', 'No Speaking'],
+        rules: ['Team of 4 members', '3 minutes performance time', 'Speaking/writing hints = cheating', 'Disqualification after 2 warnings'],
+        coordinators: 'Vijaya T K, Sangeetha',
     },
     {
         number: '04',
@@ -54,20 +59,22 @@ const EVENTS = [
         tag: 'Performance',
         accent: '#ffd700',
         poster: posterTalent,
-        description: 'Showcase your unique talent — singing, dancing, comedy, magic, or any art form. A stage to shine, captivate the audience, and win hearts!',
-        highlights: ['Any Talent', 'Live Performance', 'Audience Vote', 'Open Stage'],
-        rules: ['Individual / Group (max 6)', '5-minute time limit', 'Own music/props allowed', 'Pre-registration required'],
+        description: 'Showcase your skills! Dance with a group (proper costumes allowed) or sing solo based on a situation assigned on the spot.',
+        highlights: ['Dance Group Performance', 'Solo Singing', 'On-Spot Situation Songs', 'Costumes/Props Permitted'],
+        rules: ['Dance: Group of 5-10, 3-4 mins', 'Singing: Solo, 60s prep, 1.5 mins perf', 'Appropriate props/costumes allowed'],
+        coordinators: 'Chitra Devi, Aravindh',
     },
     {
         number: '05',
-        title: 'Silent Spectrum',
-        icon: '🤫',
-        tag: 'Team Fun',
-        accent: '#bf00ff',
-        poster: posterCharades,
-        description: 'Act out movie names, songs, or phrases without speaking while your team guesses! Hilarious, fast-paced, and a crowd favorite!',
-        highlights: ['Silent Acting', 'Team Guessing', 'Movies & Songs', 'Time Limit'],
-        rules: ['Team of 3–4', '2-minute per round', 'No speaking/lip-syncing', 'Categories rotate each round'],
+        title: 'Esports & Games',
+        icon: '🎮',
+        tag: 'Gaming',
+        accent: '#00ff88',
+        poster: posterEsports,
+        description: 'Battle for victory in Free Fire (Full map match) or test your strategic thinking in Chess!',
+        highlights: ['Free Fire Squads', '3 Maps: Bermuda/Purgatory/Kalahari', 'Chess Tournaments', 'Mobile Gaming'],
+        rules: ['FF: Squad of 4, Mobile only (no tools)', 'FF: Thumb sleeves are permitted', 'Chess: Bring own mobile + internet', 'Chess: 10 mins per game time limit'],
+        coordinators: 'Poovananda Kumar',
     },
 ];
 
@@ -100,28 +107,7 @@ const TiltPoster = ({ src, alt, accent }) => {
     );
 };
 
-/* ── Event grid card ── */
-const EventCard = ({ event, onClick }) => (
-    <motion.div className="ev-card" style={{ '--accent': event.accent }}
-        whileHover={{ y: -8, scale: 1.02 }} whileTap={{ scale: 0.97 }} onClick={onClick}
-        initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.5 }}>
-        <div className="ev-card-poster">
-            <img src={event.poster} alt={event.title} />
-            <div className="ev-card-overlay" />
-            <span className="ev-card-num">{event.number}</span>
-            <span className="ev-card-tag" style={{ background: event.accent + '22', borderColor: event.accent, color: event.accent }}>
-                {event.tag}
-            </span>
-        </div>
-        <div className="ev-card-body">
-            <span className="ev-card-icon">{event.icon}</span>
-            <h3 className="ev-card-title" style={{ color: event.accent }}>{event.title}</h3>
-            <span className="ev-card-cta">Tap to explore →</span>
-        </div>
-        <div className="ev-card-bar" style={{ background: event.accent }} />
-    </motion.div>
-);
+/* ── Event grid card (Moved to GlowingEventCard.jsx) ── */
 
 /* ── Detail modal ── */
 const EventDetail = ({ event, onClose, onRegister }) => (
@@ -167,6 +153,15 @@ const EventDetail = ({ event, onClose, onRegister }) => (
                             ))}
                         </ul>
                     </div>
+
+                    {/* Staff Coordinators */}
+                    <div className="ev-detail-section">
+                        <h4 className="ev-detail-section-title">👨‍🏫 Staff Coordinators</h4>
+                        <div className="ev-detail-desc" style={{ marginTop: '4px', fontSize: '0.9rem', color: '#fff' }}>
+                            {event.coordinators}
+                        </div>
+                    </div>
+
                     <motion.button className="ev-detail-btn"
                         style={{ background: event.accent, boxShadow: `0 0 28px ${event.accent}55` }}
                         whileHover={{ scale: 1.05, boxShadow: `0 0 48px ${event.accent}88` }}
@@ -254,16 +249,13 @@ const EventCarousel = ({ events, onSelect, onRegister }) => {
     );
 };
 
-/* ══════════════════ PAGE ══════════════════ */
 const NonTechnicalPage = () => {
     const navigate = useNavigate();
     const [selected, setSelected] = useState(null);
-    const [viewMode, setViewMode] = useState('grid');
 
     return (
         <div className="tp-page">
             <CircuitBackground opacity={0.6} />
-            <div className="circuit-overlay" />
             <div className="scan-line" />
 
             <Navbar />
@@ -283,32 +275,9 @@ const NonTechnicalPage = () => {
                 </motion.div>
             </section>
 
-            {/* View mode toggle */}
-            <div className="ev-section-header">
-                <span className="ev-section-label">ALL EVENTS</span>
-                <div className="ev-view-toggle">
-                    <button className={`ev-toggle-btn ${viewMode === 'grid' ? 'active' : ''}`} onClick={() => setViewMode('grid')}>
-                        ▦ Grid
-                    </button>
-                    <button className={`ev-toggle-btn ${viewMode === 'carousel' ? 'active' : ''}`} onClick={() => setViewMode('carousel')}>
-                        ▷ Showcase
-                    </button>
-                </div>
+            <div style={{ marginTop: '-10px', marginBottom: '10px' }}>
+                <CardFlowSlider events={EVENTS} onSelect={setSelected} />
             </div>
-
-            {/* Grid view */}
-            {viewMode === 'grid' && (
-                <section className="ev-grid">
-                    {EVENTS.map(ev => (
-                        <EventCard key={ev.number} event={ev} onClick={() => setSelected(ev)} />
-                    ))}
-                </section>
-            )}
-
-            {/* Carousel view */}
-            {viewMode === 'carousel' && (
-                <EventCarousel events={EVENTS} onSelect={setSelected} onRegister={() => navigate('/register')} />
-            )}
 
             {/* CTA */}
             <motion.section className="tp-cta" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>

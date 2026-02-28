@@ -199,36 +199,7 @@ const HomePage = () => {
                 </div>
             </motion.section>
 
-            {/* ── FOOTER ── */}
-            <footer className="site-footer">
-                <div className="footer-brand">
-                    <span className="footer-title">VibECX-2K26</span>
-                    <span className="footer-sub">Department of Electronics and Communication</span>
-                    <span className="footer-college">Suguna College of Engineering</span>
-                </div>
-                <div className="footer-links">
-                    <h4 className="footer-links-title">Quick Links</h4>
-                    <ul>
-                        {['Home', 'Technical', 'Non-Technical', 'Register', 'Contact'].map((l) => (
-                            <li key={l}>
-                                <button
-                                    className="footer-link"
-                                    onClick={() => navigate(`/${l.toLowerCase() === 'home' ? 'home' : l.toLowerCase()}`)}
-                                >
-                                    {l}
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-                <div className="footer-contact">
-                    <h4 className="footer-links-title">Contact</h4>
-                    <p className="footer-contact-name">Faculty Co-ordinator</p>
-                    <p>Mr. Idayavan. S M.E</p>
-                    <p>Assistant Professor-ECE</p>
-                    <a href="tel:9488846518" className="footer-phone">📞 9488846518</a>
-                </div>
-            </footer>
+            
         </div>
     );
 };

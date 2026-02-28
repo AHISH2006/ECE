@@ -163,7 +163,7 @@ const IntroPage = () => {
     const navigate = useNavigate();
     const [showDialog, setShowDialog] = useState(false);
     const [showContent, setShowContent] = useState(false);
-    
+
 
     useEffect(() => {
         if (sessionStorage.getItem('hasSeenIntro')) { navigate('/home'); return; }
@@ -174,6 +174,7 @@ const IntroPage = () => {
     const handleActivate = useCallback(() => setShowDialog(true), []);
     const goToLoading = useCallback((withSound) => {
         sessionStorage.setItem('hasSeenIntro', 'true');
+        sessionStorage.setItem('soundEnabled', withSound ? 'true' : 'false');
         navigate('/loading', { state: { withSound } });
     }, [navigate]);
 
@@ -247,7 +248,7 @@ const IntroPage = () => {
                     color: 'rgba(0,200,255,0.7)',
                     textShadow: '0 0 12px rgba(0,200,255,0.4)',
                 }}>
-                    
+
                     <motion.span animate={{ opacity: [1, 0] }} transition={{ duration: 0.6, repeat: Infinity }}>_</motion.span>
                 </span>
             </motion.div>

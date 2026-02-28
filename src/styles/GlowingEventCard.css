@@ -1,0 +1,86 @@
+.glow-wrapper {
+    position: relative;
+    padding: 2px;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.08);
+    /* Fallback subtle border */
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    height: 100%;
+}
+
+.glow-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(300px circle at var(--x, 50%) var(--y, 50%),
+            var(--accent),
+            transparent 100%);
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    border-radius: inherit;
+}
+
+.glow-wrapper:hover::before {
+    opacity: 1;
+}
+
+.glow-card {
+    position: relative;
+    background: rgba(10, 10, 15, 0.95);
+    /* Deep dark background */
+    border-radius: 20px;
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.glow-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(400px circle at var(--x, 50%) var(--y, 50%),
+            var(--accent-transparent, rgba(255, 255, 255, 0.1)),
+            transparent 100%);
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    border-radius: inherit;
+}
+
+.glow-wrapper:hover .glow-card::before {
+    opacity: 1;
+}
+
+.glow-card-content {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .glow-wrapper::before {
+        opacity: 0.6 !important;
+        /* Always show a subtle glow on mobile since there is no hover */
+        background: radial-gradient(250px circle at 50% 0%,
+                var(--accent),
+                transparent 100%);
+    }
+
+    .glow-card::before {
+        opacity: 1 !important;
+        background: radial-gradient(350px circle at 50% 0%,
+                var(--accent-transparent),
+                transparent 100%);
+    }
+}

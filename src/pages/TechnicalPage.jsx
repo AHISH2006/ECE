@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import TypewriterText from '../components/TypewriterText';
 import CircuitBackground from '../components/CircuitBackground';
+import GlowingEventCard from '../components/GlowingEventCard';
+import CardFlowSlider from '../components/CardFlowSlider';
 import '../styles/TechnicalPage.css';
 
 // Poster imports
@@ -21,53 +23,58 @@ const EVENTS = [
         tag: 'Research',
         accent: '#00c8ff',
         poster: posterPaper,
-        description: 'Students present research papers on emerging ECE trends like 5G/6G, VLSI, AI in Signal Processing, and Green Electronics. Demonstrate your depth of knowledge and scientific communication ability.',
-        highlights: ['5G / 6G Technologies', 'VLSI Design', 'AI in Signal Processing', 'Green Electronics'],
-        rules: ['Team of 1–2 members', 'Paper submitted 2 days prior', '10 min presentation + 5 min Q&A', 'Topic must be ECE related'],
+        description: 'Present research papers in domains like 5G/6G, Embedded & IoT, Power Electronics, and Automation in Agriculture.',
+        highlights: ['5G / 6G', 'Embedded & IoT', 'Power Electronics', 'Agriculture Automation'],
+        rules: ['Team of 3-4 members', 'Bring your own laptops', 'Domain must match listed topics'],
+        coordinators: 'Preethi M, Rajnivas, Chitra Devi',
     },
     {
         number: '02',
-        title: 'BoardCraft Arena',
-        icon: '🔌',
-        tag: 'Design',
-        accent: '#00ff88',
-        poster: posterPcb,
-        description: 'Design a Printed Circuit Board (PCB) layout for a given schematic using Eagle, KiCad, or Altium. Showcase your design skills in component placement, trace routing and DRC.',
-        highlights: ['Eagle / KiCad / Altium', 'Schematic to Layout', 'DRC & Trace Routing', 'Component Placement'],
-        rules: ['Individual / Team of 2', 'Software provided on-site', '2-hour time limit', 'Judged on accuracy & aesthetics'],
-    },
-    {
-        number: '03',
-        title: 'Code Circuit Clash',
-        icon: '🧩',
-        tag: 'Puzzle',
-        accent: '#bf00ff',
-        poster: posterCrosscode,
-        description: 'A challenging crossword puzzle where all clues and answers are drawn from electronics, semiconductors, and physics. Strategy, speed, and domain knowledge are your weapons.',
-        highlights: ['Electronics Fundamentals', 'Semiconductor Theory', 'Physics-based Clues', 'Team Strategy'],
-        rules: ['Team of 2', '45-minute time limit', 'No digital aids allowed', 'Tiebreaker: fastest completion'],
-    },
-    {
-        number: '04',
-        title: 'Core Conversations',
+        title: 'Tech Talk',
         icon: '🎤',
         tag: 'Presentation',
         accent: '#ff8800',
         poster: posterTechtalk,
-        description: 'Pick a technical topic on the spot and deliver a composed 3-minute speech showcasing your technical depth, communication skills, and confidence on stage.',
-        highlights: ['Impromptu Speaking', '3-Minute Format', 'Technical Depth', 'Communication Skills'],
-        rules: ['Individual event', 'Topic drawn randomly', '1-min prep time allowed', 'Judged on clarity & content'],
+        description: 'An on-time speech related to Electronics/Engineering. Must include Introduction, Topic Definition, Explanation, Great Achievements, Conclusion, and a Quote.',
+        highlights: ['Semiconductor Growth', 'IC Manufacturing', 'Tech in Agriculture', 'Quantum Computing'],
+        rules: ['Individual performance', '5 mins prep (mobile allowed)', '3 minutes performance time'],
+        coordinators: 'Rajnivas',
     },
     {
-        number: '05',
-        title: 'ElectroMind Arena',
+        number: '03',
+        title: 'PCB Design Contest',
+        icon: '🔌',
+        tag: 'Design',
+        accent: '#00ff88',
+        poster: posterPcb,
+        description: 'Two-level event: Level 1 features a basic PCB Design Quiz, and Level 2 requires designing a basic project like 555 Timer, ADC, DAC, or Rectifier.',
+        highlights: ['Level 1: Quiz', 'Level 2: Basic Project', '555 Timer / ADC / DAC', 'Rectifier Design'],
+        rules: ['Individual or Team of 2-3', 'Bring your own laptops', '1 hour total time'],
+        coordinators: 'Vijaya T K, Geetha, Chitra Devi',
+    },
+    {
+        number: '04',
+        title: 'Quiz Master',
         icon: '🏆',
         tag: 'Quiz',
         accent: '#ffd700',
         poster: posterQuiz,
-        description: 'A fast-paced quiz covering electronics, communication, and physics with multiple buzzer rounds, rapid fire, and audio-visual questions. Last team standing wins!',
-        highlights: ['Multiple Rounds', 'Rapid Fire Format', 'Buzzer Rounds', 'Team & Individual'],
-        rules: ['Team of 2', 'Prelims: Written round', 'Finals: Buzzer + Rapid fire', 'No negative marking in prelims'],
+        description: 'A challenge covering Engineering and Electronics, including electronics symbols, semiconductor developments, motor types, IC types, and identification.',
+        highlights: ['Electronics Symbols', 'Semiconductor Updates', 'Motor & IC Types', 'Picture Identification'],
+        rules: ['Individual or Team of 2-3', '30 minutes total time', 'No mobile phones allowed', 'Time limit per question'],
+        coordinators: 'Aravindh',
+    },
+    {
+        number: '05',
+        title: 'Tech Cross Code',
+        icon: '💻',
+        tag: 'Coding',
+        accent: '#bf00ff',
+        poster: posterCrosscode,
+        description: 'Identify errors and correct embedded C codes. The participant or team who finishes first with verified output is declared the winner.',
+        highlights: ['Embedded C', 'Error Identification', 'Code Correction', 'Output Verification'],
+        rules: ['Individual or Team of 2', '30 minutes time limit', 'Bring your own laptops', 'No use of mobile phones or AI'],
+        coordinators: 'Sangeetha S, Chitra Devi',
     },
 ];
 
@@ -108,40 +115,7 @@ const TiltPoster = ({ src, alt, accent }) => {
     );
 };
 
-/* ── Event grid card ── */
-const EventCard = ({ event, onClick }) => (
-    <motion.div
-        className="ev-card"
-        style={{ '--accent': event.accent }}
-        whileHover={{ y: -8, scale: 1.02 }}
-        whileTap={{ scale: 0.97 }}
-        onClick={onClick}
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.5 }}
-    >
-        {/* Poster thumbnail */}
-        <div className="ev-card-poster">
-            <img src={event.poster} alt={event.title} />
-            <div className="ev-card-overlay" />
-            <span className="ev-card-num">{event.number}</span>
-            <span className="ev-card-tag" style={{ background: event.accent + '22', borderColor: event.accent, color: event.accent }}>
-                {event.tag}
-            </span>
-        </div>
-
-        {/* Name row */}
-        <div className="ev-card-body">
-            <span className="ev-card-icon">{event.icon}</span>
-            <h3 className="ev-card-title" style={{ color: event.accent }}>{event.title}</h3>
-            <span className="ev-card-cta">Tap to explore →</span>
-        </div>
-
-        {/* Accent border bottom */}
-        <div className="ev-card-bar" style={{ background: event.accent }} />
-    </motion.div>
-);
+/* ── Event grid card (Moved to GlowingEventCard.jsx) ── */
 
 /* ── Detail modal ── */
 const EventDetail = ({ event, onClose, onRegister }) => (
@@ -205,6 +179,14 @@ const EventDetail = ({ event, onClose, onRegister }) => (
                                 </motion.li>
                             ))}
                         </ul>
+                    </div>
+
+                    {/* Staff Coordinators */}
+                    <div className="ev-detail-section">
+                        <h4 className="ev-detail-section-title">👨‍🏫 Staff Coordinators</h4>
+                        <div className="ev-detail-desc" style={{ marginTop: '4px', fontSize: '0.9rem', color: '#fff' }}>
+                            {event.coordinators}
+                        </div>
                     </div>
 
                     <motion.button
@@ -321,16 +303,13 @@ const EventCarousel = ({ events, onSelect, onRegister }) => {
     );
 };
 
-/* ══════════════════ PAGE ══════════════════ */
 const TechnicalPage = () => {
     const navigate = useNavigate();
     const [selected, setSelected] = useState(null);
-    const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'carousel'
 
     return (
         <div className="tp-page">
             <CircuitBackground opacity={0.6} />
-            <div className="circuit-overlay" />
             <div className="scan-line" />
 
             <Navbar />
@@ -350,36 +329,9 @@ const TechnicalPage = () => {
                 </motion.div>
             </section>
 
-            {/* View mode toggle */}
-            <div className="ev-section-header">
-                <span className="ev-section-label">ALL EVENTS</span>
-                <div className="ev-view-toggle">
-                    <button className={`ev-toggle-btn ${viewMode === 'grid' ? 'active' : ''}`} onClick={() => setViewMode('grid')}>
-                        ▦ Grid
-                    </button>
-                    <button className={`ev-toggle-btn ${viewMode === 'carousel' ? 'active' : ''}`} onClick={() => setViewMode('carousel')}>
-                        ▷ Showcase
-                    </button>
-                </div>
+            <div style={{ marginTop: '-10px', marginBottom: '10px' }}>
+                <CardFlowSlider events={EVENTS} onSelect={setSelected} />
             </div>
-
-            {/* Grid view */}
-            {viewMode === 'grid' && (
-                <section className="ev-grid">
-                    {EVENTS.map(ev => (
-                        <EventCard key={ev.number} event={ev} onClick={() => setSelected(ev)} />
-                    ))}
-                </section>
-            )}
-
-            {/* Carousel one-by-one view */}
-            {viewMode === 'carousel' && (
-                <EventCarousel
-                    events={EVENTS}
-                    onSelect={setSelected}
-                    onRegister={() => navigate('/register')}
-                />
-            )}
 
             {/* CTA */}
             <motion.section className="tp-cta" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
