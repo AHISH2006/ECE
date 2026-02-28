@@ -41,7 +41,7 @@ const RegisterPage = () => {
                         <div className="reg-card-content">
                             <div className="reg-card-tag">BEST VALUE</div>
                             <h2 className="reg-card-title">ARC PASS</h2>
-                            <div className="reg-card-price">₹149</div>
+                            <div className="reg-card-price">₹199</div>
                             <p className="reg-card-quote">“Double Power Access”</p>
                             <ul className="reg-card-list">
                                 <li><span className="reg-tick">🎫</span> 1 Technical Event</li>

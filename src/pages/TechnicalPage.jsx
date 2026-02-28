@@ -38,7 +38,7 @@ const EVENTS = [
         description: 'An on-time speech related to Electronics/Engineering. Must include Introduction, Topic Definition, Explanation, Great Achievements, Conclusion, and a Quote.',
         highlights: ['Semiconductor Growth', 'IC Manufacturing', 'Tech in Agriculture', 'Quantum Computing'],
         rules: ['Individual performance', '5 mins prep (mobile allowed)', '3 minutes performance time'],
-        coordinators: 'Rajnivas',
+        
     },
     {
         number: '03',
@@ -50,7 +50,7 @@ const EVENTS = [
         description: 'Two-level event: Level 1 features a basic PCB Design Quiz, and Level 2 requires designing a basic project like 555 Timer, ADC, DAC, or Rectifier.',
         highlights: ['Level 1: Quiz', 'Level 2: Basic Project', '555 Timer / ADC / DAC', 'Rectifier Design'],
         rules: ['Individual or Team of 2-3', 'Bring your own laptops', '1 hour total time'],
-        coordinators: 'Vijaya T K, Geetha, Chitra Devi',
+        
     },
     {
         number: '04',
@@ -62,7 +62,7 @@ const EVENTS = [
         description: 'A challenge covering Engineering and Electronics, including electronics symbols, semiconductor developments, motor types, IC types, and identification.',
         highlights: ['Electronics Symbols', 'Semiconductor Updates', 'Motor & IC Types', 'Picture Identification'],
         rules: ['Individual or Team of 2-3', '30 minutes total time', 'No mobile phones allowed', 'Time limit per question'],
-        coordinators: 'Aravindh',
+       
     },
     {
         number: '05',
@@ -74,7 +74,7 @@ const EVENTS = [
         description: 'Identify errors and correct embedded C codes. The participant or team who finishes first with verified output is declared the winner.',
         highlights: ['Embedded C', 'Error Identification', 'Code Correction', 'Output Verification'],
         rules: ['Individual or Team of 2', '30 minutes time limit', 'Bring your own laptops', 'No use of mobile phones or AI'],
-        coordinators: 'Sangeetha S, Chitra Devi',
+        
     },
 ];
 
