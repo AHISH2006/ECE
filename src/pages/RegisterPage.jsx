@@ -15,11 +15,6 @@ const ALL_EVENTS = [
 ];
 
 const RegisterPage = () => {
-    const [form, setForm] = useState({ name: '', college: '', email: '', phone: '', event: '', team: '' });
-    const [submitted, setSubmitted] = useState(false);
-    const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-    const handleSubmit = (e) => { e.preventDefault(); setSubmitted(true); };
-
     return (
         <div className="tp-page">
             <CircuitBackground />
@@ -38,61 +33,74 @@ const RegisterPage = () => {
                 </motion.p>
             </motion.section>
 
-            <motion.section className="reg-section" variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
-                {submitted ? (
-                    <motion.div className="reg-success" variants={fadeUp}>
-                        <div className="reg-success-icon">✅</div>
-                        <TypewriterText text="Registration Received!" className="reg-success-title" tag="h2" stagger={0.055} />
-                        <p className="reg-success-sub">
-                            Thank you for registering for VibECX-2K26.<br />We'll reach out to you shortly.
-                        </p>
+            <motion.section className="reg-section" variants={stagger} initial="hidden" animate="show">
+                <div className="reg-container">
+                    {/* ARC PASS CARD */}
+                    <motion.div className="reg-card arc-pass" variants={fadeUp} whileHover={{ y: -10, transition: { duration: 0.3 } }}>
+                        <div className="reg-card-glow" />
+                        <div className="reg-card-content">
+                            <div className="reg-card-tag">BEST VALUE</div>
+                            <h2 className="reg-card-title">ARC PASS</h2>
+                            <div className="reg-card-price">₹149</div>
+                            <p className="reg-card-quote">“Double Power Access”</p>
+                            <ul className="reg-card-list">
+                                <li><span className="reg-tick">🎫</span> 1 Technical Event</li>
+                                <li><span className="reg-tick">🎫</span> 1 Non-Technical Event</li>
+                                <li><span className="reg-tick">📜</span> Participation Certificate</li>
+                            </ul>
+                        </div>
                         <span className="card-corner tl" /><span className="card-corner tr" />
                         <span className="card-corner bl" /><span className="card-corner br" />
                     </motion.div>
-                ) : (
-                    <motion.form className="reg-form" onSubmit={handleSubmit} variants={fadeUp}>
-                        <h2 className="reg-form-title">Participant Details</h2>
-                        <div className="reg-grid">
-                            <div className="reg-field">
-                                <label className="reg-label">Full Name *</label>
-                                <input className="reg-input" name="name" value={form.name} onChange={handleChange} placeholder="Enter your name" required />
-                            </div>
-                            <div className="reg-field">
-                                <label className="reg-label">College Name *</label>
-                                <input className="reg-input" name="college" value={form.college} onChange={handleChange} placeholder="Your college" required />
-                            </div>
-                            <div className="reg-field">
-                                <label className="reg-label">Email Address *</label>
-                                <input className="reg-input" type="email" name="email" value={form.email} onChange={handleChange} placeholder="you@email.com" required />
-                            </div>
-                            <div className="reg-field">
-                                <label className="reg-label">Phone Number *</label>
-                                <input className="reg-input" type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder="10-digit mobile" required />
-                            </div>
-                            <div className="reg-field">
-                                <label className="reg-label">Event *</label>
-                                <select className="reg-input" name="event" value={form.event} onChange={handleChange} required>
-                                    <option value="">Select an event</option>
-                                    <optgroup label="Technical Events">
-                                        {ALL_EVENTS.slice(0, 5).map(e => <option key={e} value={e}>{e}</option>)}
-                                    </optgroup>
-                                    <optgroup label="Non-Technical Events">
-                                        {ALL_EVENTS.slice(5).map(e => <option key={e} value={e}>{e}</option>)}
-                                    </optgroup>
-                                </select>
-                            </div>
-                            <div className="reg-field">
-                                <label className="reg-label">Team Name (if applicable)</label>
-                                <input className="reg-input" name="team" value={form.team} onChange={handleChange} placeholder="Leave blank for solo" />
-                            </div>
+
+                    {/* ADD-ON CARD */}
+                    <motion.div className="reg-card power-addon" variants={fadeUp} whileHover={{ y: -10, transition: { duration: 0.3 } }}>
+                        <div className="reg-card-glow" />
+                        <div className="reg-card-content">
+                            <div className="reg-card-tag addon-tag">UPGRADE</div>
+                            <h2 className="reg-card-title">Power Add-On</h2>
+                            <div className="reg-card-price addon-price">₹25</div>
+                            <p className="reg-card-quote">“Upgrade Your Energy”</p>
+                            <p className="reg-card-desc">Add any extra event for just ₹25 each.</p>
                         </div>
-                        <motion.button className="reg-submit cta-primary" type="submit" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
-                            Submit Registration
-                        </motion.button>
                         <span className="card-corner tl" /><span className="card-corner tr" />
                         <span className="card-corner bl" /><span className="card-corner br" />
-                    </motion.form>
-                )}
+                    </motion.div>
+                </div>
+
+                {/* GRAND ANIMATED REGISTRATION BUTTON */}
+                <motion.div className="reg-button-wrap" variants={fadeUp}>
+                    <motion.button
+                        className="grand-reg-btn"
+                        whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(0, 229, 255, 0.6)" }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => window.open('https://docs.google.com/forms/d/e/1FAIpQLSdfGGkLxjKZsAMF3co_ZXOoach8IeaoGD0jrVYDCR0hBOzibg/viewform?usp=dialog', '_blank')}
+                    >
+                        <span className="btn-glow-ring" />
+                        <span className="btn-text">INITIALIZE REGISTRATION</span>
+                        <div className="btn-particles">
+                            {[...Array(6)].map((_, i) => (
+                                <motion.span
+                                    key={i}
+                                    className="btn-particle"
+                                    animate={{
+                                        y: [-20, -100],
+                                        x: [0, (i - 2.5) * 30],
+                                        opacity: [0, 1, 0],
+                                        scale: [0, 1, 0]
+                                    }}
+                                    transition={{
+                                        duration: 1.5,
+                                        repeat: Infinity,
+                                        delay: i * 0.2,
+                                        ease: "easeOut"
+                                    }}
+                                />
+                            ))}
+                        </div>
+                    </motion.button>
+                    <p className="reg-hint">Click to proceed to the registration portal</p>
+                </motion.div>
             </motion.section>
 
             <footer className="tp-footer-strip">
