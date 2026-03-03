@@ -26,7 +26,7 @@ const EVENTS = [
         description: 'Present research papers in domains like 5G/6G, Embedded & IoT, Power Electronics, and Automation in Agriculture.',
         highlights: ['5G / 6G', 'Embedded & IoT', 'Power Electronics', 'Agriculture Automation'],
         rules: ['Team of 3-4 members', 'Bring your own laptops', 'Domain must match listed topics'],
-        coordinators: 'Preethi M, Rajnivas, Chitra Devi',
+       
     },
     {
         number: '02',
@@ -181,13 +181,7 @@ const EventDetail = ({ event, onClose, onRegister }) => (
                         </ul>
                     </div>
 
-                    {/* Staff Coordinators */}
-                    <div className="ev-detail-section">
-                        <h4 className="ev-detail-section-title">👨‍🏫 Staff Coordinators</h4>
-                        <div className="ev-detail-desc" style={{ marginTop: '4px', fontSize: '0.9rem', color: '#fff' }}>
-                            {event.coordinators}
-                        </div>
-                    </div>
+
 
                     <motion.button
                         className="ev-detail-btn"

@@ -160,12 +160,7 @@ const EventDetail = ({ event, onClose, onRegister }) => (
                     </div>
 
                     {/* Staff Coordinators */}
-                    <div className="ev-detail-section">
-                        <h4 className="ev-detail-section-title">👨‍🏫 Staff Coordinators</h4>
-                        <div className="ev-detail-desc" style={{ marginTop: '4px', fontSize: '0.9rem', color: '#fff' }}>
-                            {event.coordinators}
-                        </div>
-                    </div>
+
 
                     <motion.button className="ev-detail-btn"
                         style={{ background: event.accent, boxShadow: `0 0 28px ${event.accent}55` }}
