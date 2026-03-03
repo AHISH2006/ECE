@@ -11,8 +11,8 @@ const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.14 } } };
 const cardVar = { hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0, transition: { duration: 0.55 } } };
 
 const STAFF_COORDINATORS = [
-    { role: 'Convenor', name: 'Mr. Ananda Kumar. K M.E', post: 'Assistant Professor and HoD-ECE' },
-    { role: 'Faculty Co-ordinator', name: 'Mr. Idayavan. S M.E', post: 'Assistant Professor-ECE', phone: '9488846518' },
+    { role: 'Convenor', name: 'PROF. Anandakumar. K - M.E', post: 'Assistant Professor and HoD-ECE' },
+    { role: 'Faculty Co-ordinator', name: 'PROF. Idayavan. S - M.E', post: 'Assistant Professor-ECE', phone: '9488846518' },
 ];
 
 const STUDENT_COORDINATORS = [
@@ -81,7 +81,8 @@ const ContactPage = () => (
                     <h3 className="contact-info-title">General Enquiries</h3>
                     <p className="contact-info-line">For general event information and registration queries</p>
                     <p className="contact-info-line" style={{ marginTop: 10 }}>
-                        Contact the Faculty Co-ordinator: <a href="tel:9488846518" style={{ color: '#00e5ff', textDecoration: 'none' }}>9488846518</a>
+                        Contact the Faculty Co-ordinator:<br/> <a className="contact-card-phone" href="tel:9488846518 " style={{ color: '#00e5ff', textDecoration: 'none' }}>📞 9488846518</a>
+                         <a className="contact-card-phone" href="tel:8838204730 " style={{ color: '#00e5ff', textDecoration: 'none' }}>📞 8838204730</a>
                     </p>
                     <span className="card-corner tl" /><span className="card-corner tr" />
                     <span className="card-corner bl" /><span className="card-corner br" />
@@ -101,7 +102,6 @@ const ContactPage = () => (
                 </motion.div>
             </div>
         </motion.section>
-
         <footer className="tp-footer-strip">
             <span>VibECX-2K26 · Dept of ECE · Suguna College of Engineering · March 11, 2026</span>
         </footer>
