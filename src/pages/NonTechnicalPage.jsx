@@ -26,7 +26,7 @@ const EVENTS = [
         description: 'Create a creative, hilarious, and engaging advertisement based on an "on the spot" topic.',
         highlights: ['On-Spot Topic', 'Team Event', 'Creative Advertisement', 'No Materials Required'],
         rules: ['Team of 3-4 members', '10 minutes prep time', 'Max 5 minutes performance time'],
-        
+
     },
     {
         number: '02',
@@ -38,7 +38,7 @@ const EVENTS = [
         description: 'A solo performance speaking event on a random topic. Think fast and speak clearly!',
         highlights: ['Solo Performance', 'Random Topic', 'Quick Thinking', 'No Materials Required'],
         rules: ['Individual event', '1 minute prep time', '1 minute performance time'],
-        
+
     },
     {
         number: '03',
@@ -50,7 +50,7 @@ const EVENTS = [
         description: 'Act out 10 given photos for your team to guess. One person acts at a time, but person swapping is permitted.',
         highlights: ['10 Photos to Act', 'Team Format', 'Person Swapping Allowed', 'No Speaking'],
         rules: ['Team of 4 members', '3 minutes performance time', 'Speaking/writing hints = cheating', 'Disqualification after 2 warnings'],
-        
+
     },
     {
         number: '04',
@@ -59,10 +59,15 @@ const EVENTS = [
         tag: 'Performance',
         accent: '#ffd700',
         poster: posterTalent,
-        description: 'Showcase your skills! Dance with a group (proper costumes allowed) or sing solo based on a situation assigned on the spot.',
-        highlights: ['Dance Group Performance', 'Solo Singing', 'On-Spot Situation Songs', 'Costumes/Props Permitted'],
-        rules: ['Dance: Group of 5-10, 3-4 mins', 'Singing: Solo, 60s prep, 1.5 mins perf', 'Appropriate props/costumes allowed'],
-        
+        description: 'Showcase your skills! From high-energy Dance and soulful Singing to expressive Mono Acts and hilarious Stand-up Comedy.',
+        highlights: ['Multi-Category Show', 'Solo & Group Performances', 'On-Spot Singing Challenges', 'Creativity Unleashed'],
+        rules: [
+            'Dance: Group (≤5 members) or Solo. Time: 3-4 mins. Props & Costumes allowed.',
+            'Singing: Solo (1.5 mins) or Duo (2-3 mins). On-spot situation song. 60s prep.',
+            'Mono Act: Solo performance, 3-5 mins. Language: Tamil/English/Malayalam. Bring own props.',
+            'Stand-up Comedy: 3-4 mins. Strictly no body shaming or gender-based bullying.'
+        ],
+
     },
     {
         number: '05',
@@ -74,7 +79,7 @@ const EVENTS = [
         description: 'Battle for victory in Free Fire (Full map match) or test your strategic thinking in Chess!',
         highlights: ['Free Fire Squads', '3 Maps: Bermuda/Purgatory/Kalahari', 'Chess Tournaments', 'Mobile Gaming'],
         rules: ['FF: Squad of 4, Mobile only (no tools)', 'FF: Thumb sleeves are permitted', 'Chess: Bring own mobile + internet', 'Chess: 10 mins per game time limit'],
-        
+
     },
 ];
 
