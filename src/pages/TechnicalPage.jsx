@@ -18,15 +18,20 @@ import posterQuiz from '../assets/poster_quiz.png';
 const EVENTS = [
     {
         number: '01',
-        title: 'Paper Presentation',
+        title: 'Technical Paper Presentation',
         icon: '📄',
         tag: 'Research',
         accent: '#00c8ff',
         poster: posterPaper,
-        description: 'Present research papers in domains like 5G/6G, Embedded & IoT, Power Electronics, and Automation in Agriculture.',
-        highlights: ['5G / 6G', 'Embedded & IoT', 'Power Electronics', 'Agriculture Automation'],
-        rules: ['Team of 3-4 members', 'Bring your own laptops', 'Domain must match listed topics'],
-       
+        description: 'Present research papers in ECE domains. All topics must be related to Electronics and Communication Engineering (e.g., VLSI, Embedded Systems, Signal Processing, 5G/6G Technologies, IoT).',
+        highlights: ['VLSI', 'Embedded Systems', 'Signal Processing', '5G/6G Technologies', 'IoT'],
+        rules: [
+            'Team Size: 2 to 4 members',
+            'Time Limit: Strictly 4 minutes (Timing is critical)',
+            'Submission: Email final presentations to the provided Gmail address prior to the deadline',
+            'Slide Constraint: Maximum 7 slides',
+            'Themes: All topics must be related to ECE'
+        ],
     },
     {
         number: '02',
@@ -38,7 +43,7 @@ const EVENTS = [
         description: 'An on-time speech related to Electronics/Engineering. Must include Introduction, Topic Definition, Explanation, Great Achievements, Conclusion, and a Quote.',
         highlights: ['Semiconductor Growth', 'IC Manufacturing', 'Tech in Agriculture', 'Quantum Computing'],
         rules: ['Individual performance', '5 mins prep (mobile allowed)', '3 minutes performance time'],
-        
+
     },
     {
         number: '03',
@@ -47,10 +52,20 @@ const EVENTS = [
         tag: 'Design',
         accent: '#00ff88',
         poster: posterPcb,
-        description: 'Two-level event: Level 1 features a basic PCB Design Quiz, and Level 2 requires designing a basic project like 555 Timer, ADC, DAC, or Rectifier.',
-        highlights: ['Level 1: Quiz', 'Level 2: Basic Project', '555 Timer / ADC / DAC', 'Rectifier Design'],
-        rules: ['Individual or Team of 2-3', 'Bring your own laptops', '1 hour total time'],
-        
+        description: 'A two-level design challenge: Level 1 (Schematic Drafting) involves recreating a provided circuit diagram, and Level 2 (PCB Layout & 3D Visualization) involves component identification and 3D rendering.',
+        highlights: [
+            'Round 1: Schematic Drafting (25 Mins)',
+            'Round 2: PCB Layout & 3D Rendering (15 Mins)',
+            'Level 1: Schematic Design',
+            'Level 2: Layout & 3D Visualization'
+        ],
+        rules: [
+            'Accuracy: Strictly follow the provided circuit diagram',
+            'Equipment: Participants must bring their own laptops',
+            'Prohibitions: Use of mobile phones is strictly prohibited',
+            'Deadlines: Submissions must be within the allotted time',
+            'Finality: Judges\' decision is final and binding'
+        ],
     },
     {
         number: '04',
@@ -62,7 +77,7 @@ const EVENTS = [
         description: 'A challenge covering Engineering and Electronics, including electronics symbols, semiconductor developments, motor types, IC types, and identification.',
         highlights: ['Electronics Symbols', 'Semiconductor Updates', 'Motor & IC Types', 'Picture Identification'],
         rules: ['Individual or Team of 2-3', '30 minutes total time', 'No mobile phones allowed', 'Time limit per question'],
-       
+
     },
     {
         number: '05',
@@ -74,7 +89,7 @@ const EVENTS = [
         description: 'Identify errors and correct embedded C codes. The participant or team who finishes first with verified output is declared the winner.',
         highlights: ['Embedded C', 'Error Identification', 'Code Correction', 'Output Verification'],
         rules: ['Individual or Team of 2', '30 minutes time limit', 'Bring your own laptops', 'No use of mobile phones or AI'],
-        
+
     },
 ];
 
