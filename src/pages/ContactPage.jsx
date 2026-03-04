@@ -11,7 +11,7 @@ const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.14 } } };
 const cardVar = { hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0, transition: { duration: 0.55 } } };
 
 const STAFF_COORDINATORS = [
-    { role: 'Convenor', name: 'PROF. Anandakumar. K - M.E', post: 'Assistant Professor and HoD-ECE' },
+    { role: 'Convenor', name: 'PROF. Anandakumar. K - M.E', post: 'HEAD OF THE DEPARTMENT ELECTRONICS COMMUNICATION AND ENGINEERING' },
     { role: 'Faculty Co-ordinator', name: 'PROF. Idayavan. S - M.E', post: 'Assistant Professor-ECE', phone: '9488846518' },
 ];
 
