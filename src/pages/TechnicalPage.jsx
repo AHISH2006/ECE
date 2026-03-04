@@ -86,10 +86,22 @@ const EVENTS = [
         tag: 'Coding',
         accent: '#bf00ff',
         poster: posterCrosscode,
-        description: 'Identify errors and correct embedded C codes. The participant or team who finishes first with verified output is declared the winner.',
-        highlights: ['Embedded C', 'Error Identification', 'Code Correction', 'Output Verification'],
-        rules: ['Individual or Team of 2', '30 minutes time limit', 'Bring your own laptops', 'No use of mobile phones or AI'],
-
+        description: 'A two-round coding challenge: Round 1 (The Debugging Sprint) focuses on identifying and fixing errors in Embedded C, and Round 2 (The Creative Completion) involves completing a half-finished snippet with your own unique logic.',
+        highlights: [
+            'Round 1: Debugging Sprint (15 Mins)',
+            'Round 2: Creative Completion (15 Mins)',
+            'Embedded C Focus',
+            'Logical & Syntax Errors',
+            'Functional Efficiency'
+        ],
+        rules: [
+            'Team Size: Maximum of 2 members (Individual allowed)',
+            'Requirement: Bring your own laptops & preferred IDE',
+            'Connectivity: WiFi will be provided at the venue',
+            'Progression: Must complete Round 1 to qualify for Round 2',
+            'Judging: Based on accuracy, functionality, and speed',
+            'Strictly no mobile phones or AI assistants allowed'
+        ],
     },
 ];
 

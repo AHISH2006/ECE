@@ -23,10 +23,21 @@ const EVENTS = [
         tag: 'Creative',
         accent: '#ff3d8f',
         poster: posterAdmad,
-        description: 'Create a creative, hilarious, and engaging advertisement based on an "on the spot" topic.',
-        highlights: ['On-Spot Topic', 'Team Event', 'Creative Advertisement', 'No Materials Required'],
-        rules: ['Team of 3-4 members', '10 minutes prep time', 'Max 5 minutes performance time'],
-
+        description: 'Test your marketing skills! Create a hilarious or engaging advertisement on an on-the-spot topic assigned by the judges.',
+        highlights: [
+            'Round 1: On-the-Spot Topic',
+            '10 Mins Prep Time',
+            '3 Mins Performance',
+            'Entertainment & Commercial Categories'
+        ],
+        rules: [
+            'Team Size: 3-4 members per team',
+            'Participation: Only one team per member',
+            'Categories: Entertainment (Parody/Movies) or Commercial',
+            'Exceeding time will result in negative marking',
+            'Offensive language leads to immediate disqualification',
+            'Judges\' decision is final and binding'
+        ],
     },
     {
         number: '02',
@@ -47,10 +58,20 @@ const EVENTS = [
         tag: 'Team Fun',
         accent: '#bf00ff',
         poster: posterCharades,
-        description: 'Act out 10 given photos for your team to guess. One person acts at a time, but person swapping is permitted.',
-        highlights: ['10 Photos to Act', 'Team Format', 'Person Swapping Allowed', 'No Speaking'],
-        rules: ['Team of 4 members', '3 minutes performance time', 'Speaking/writing hints = cheating', 'Disqualification after 2 warnings'],
-
+        description: 'The ultimate non-verbal guessing game! Convey movie titles, technical words, or song titles using only body language.',
+        highlights: [
+            'Categories: Movies, Tech, Songs',
+            'Prompt Selection: Random Paper Slips',
+            'Strict Time Limit: 2-3 Mins',
+            'Point-based Scoring System'
+        ],
+        rules: [
+            'Team Formation: Two teams, alternating turns',
+            '"No Speaking" active: No sounds or whispering',
+            'No Lip Movement or writing on any surface',
+            'Actors must use gestures and body language only',
+            'Highest score at the end takes the victory'
+        ],
     },
     {
         number: '04',
@@ -71,15 +92,25 @@ const EVENTS = [
     },
     {
         number: '05',
-        title: 'Esports & Games',
+        title: 'Esports & Chess',
         icon: '🎮',
         tag: 'Gaming',
         accent: '#00ff88',
         poster: posterEsports,
-        description: 'Battle for victory in Free Fire (Full map match) or test your strategic thinking in Chess!',
-        highlights: ['Free Fire Squads', '3 Maps: Bermuda/Purgatory/Kalahari', 'Chess Tournaments', 'Mobile Gaming'],
-        rules: ['FF: Squad of 4, Mobile only (no tools)', 'FF: Thumb sleeves are permitted', 'Chess: Bring own mobile + internet', 'Chess: 10 mins per game time limit'],
-
+        description: 'Battle for victory in Free Fire (Full map) or test your strategic thinking in the Official Chess Tournament.',
+        highlights: [
+            'Chess: Blitz (5 min per player)',
+            'Chess Structure: Knockout (Rd I -> QF -> SF -> Final)',
+            'Lucky Bye: Highest Accuracy skips Rounds',
+            'Free Fire: Bermuda/Purgatory/Kalahari'
+        ],
+        rules: [
+            'Chess: Platform: Chess.com, Single Elimination',
+            'Chess: 2 illegal moves = automatic loss',
+            'Chess: Touch-move and fixed placement rules',
+            'Free Fire: Squad of 4, mobile only (no tools)',
+            'Free Fire: Thumb sleeves permitted, bring internet'
+        ],
     },
 ];
 
