@@ -18,19 +18,22 @@ import posterQuiz from '../assets/poster_quiz.png';
 const EVENTS = [
     {
         number: '01',
-        title: 'Technical Paper Presentation',
+        title: 'Paper Presentation',
         icon: '📄',
         tag: 'Research',
         accent: '#00c8ff',
         poster: posterPaper,
-        description: 'Present research papers in ECE domains. All topics must be related to Electronics and Communication Engineering (e.g., VLSI, Embedded Systems, Signal Processing, 5G/6G Technologies, IoT).',
-        highlights: ['VLSI', 'Embedded Systems', 'Signal Processing', '5G/6G Technologies', 'IoT'],
+        description: 'Participants can choose topics related to ECE or any other innovative topic. Topics include: 5G and Future Communication Technology, Internet of Things (IoT) in Smart Homes, Artificial Intelligence in Electronics, Wireless Power Transfer, Robotics in Modern Engineering, Embedded Systems in Daily Life, Smart Cities using IoT, Satellite Communication Systems, Autonomous Vehicles Technology, Green Energy and Smart Grids, 6G Communication, Blockchain Technology, Cybersecurity, Augmented Reality (AR), Virtual Reality (VR), Edge Computing in IoT, Applications of Sensors, Role of Electronics in Healthcare, Smart Traffic Management System, Wearable Technology, Drone Technology, Climate Change, AI in Education, Space Exploration, Women Empowerment, Cyber Safety, Entrepreneurship, Social Media Impact, Sustainable Development, and Mental Health Awareness.',
+        highlights: [],
         rules: [
-            'Team Size: 2 to 4 members',
-            'Time Limit: Strictly 4 minutes (Timing is critical)',
-            'Submission: Email final presentations to the provided Gmail address prior to the deadline',
-            'Slide Constraint: Maximum 7 slides',
-            'Themes: All topics must be related to ECE'
+            'Team Size: Each team can have 2 to 4 members only.',
+            'Presentation Time: The maximum time allowed is 4 minutes for each team.',
+            'Submission: The presentation slides (PPT) must be sent to the given Gmail ID before the event.',
+            'Topic: ECE related or any other innovative topics.',
+            'Slides Limit: The presentation should contain a maximum of 7 slides.',
+            'Time Management: Participants must strictly follow the given time limit.',
+            'Judging Criteria: Content Quality, Creativity, Technical Knowledge, and Presentation Skills',
+            'Decision: The judges\' decision will be final.'
         ],
     },
     {
@@ -181,18 +184,20 @@ const EventDetail = ({ event, onClose, onRegister }) => (
                     <p className="ev-detail-desc">{event.description}</p>
 
                     {/* Highlights */}
-                    <div className="ev-detail-section">
-                        <h4 className="ev-detail-section-title">✦ Key Topics</h4>
-                        <ul className="ev-detail-list">
-                            {event.highlights.map((h, i) => (
-                                <motion.li key={i} initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: 0.1 + i * 0.07 }}>
-                                    <span className="ev-dot" style={{ background: event.accent }} />
-                                    {h}
-                                </motion.li>
-                            ))}
-                        </ul>
-                    </div>
+                    {event.highlights && event.highlights.length > 0 && (
+                        <div className="ev-detail-section">
+                            <h4 className="ev-detail-section-title">✦ Key Topics</h4>
+                            <ul className="ev-detail-list">
+                                {event.highlights.map((h, i) => (
+                                    <motion.li key={i} initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: 0.1 + i * 0.07 }}>
+                                        <span className="ev-dot" style={{ background: event.accent }} />
+                                        {h}
+                                    </motion.li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
 
                     {/* Rules */}
                     <div className="ev-detail-section">
@@ -275,14 +280,16 @@ const EventCarousel = ({ events, onSelect, onRegister }) => {
                             <h2 className="ev-carousel-title" style={{ color: ev.accent }}>{ev.title}</h2>
                             <p className="ev-carousel-desc">{ev.description}</p>
 
-                            <div className="ev-carousel-chips">
-                                {ev.highlights.map((h, i) => (
-                                    <span key={i} className="ev-carousel-chip"
-                                        style={{ borderColor: ev.accent + '55', color: ev.accent + 'dd' }}>
-                                        {h}
-                                    </span>
-                                ))}
-                            </div>
+                            {ev.highlights && ev.highlights.length > 0 && (
+                                <div className="ev-carousel-chips">
+                                    {ev.highlights.map((h, i) => (
+                                        <span key={i} className="ev-carousel-chip"
+                                            style={{ borderColor: ev.accent + '55', color: ev.accent + 'dd' }}>
+                                            {h}
+                                        </span>
+                                    ))}
+                                </div>
+                            )}
 
                             <div className="ev-carousel-actions">
                                 <motion.button className="ev-carousel-detail-btn"

@@ -61,6 +61,9 @@ import Navbar from '../components/Navbar';
 import TypewriterText from '../components/TypewriterText';
 import '../styles/HomePage.css';
 
+// Chief Guest Import
+import chiefGuestImg from '../assets/cheifguest.jpeg';
+
 /* ── Animation variants ── */
 const fadeUp = {
     hidden: { opacity: 0, y: 40 },
@@ -172,6 +175,46 @@ const HomePage = () => {
 
                 <CountdownTimer targetDate="2026-03-11T09:00:00" />
 
+                {/* ── CHIEF GUEST ── */}
+                <motion.div
+                    className="guest-section"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 1.4, duration: 0.8 }}
+                >
+                    <div className="guest-glow-overlay" />
+                    <h3 className="guest-heading">Guest of Honor</h3>
+
+                    <motion.div
+                        className="guest-card"
+                        whileHover={{ y: -10, scale: 1.02 }}
+                        transition={{ duration: 0.3 }}
+                    >
+                        <div className="guest-card-inner">
+                            <div className="guest-img-container">
+                                <img src={chiefGuestImg} alt="Mr. Mani Prabhu" className="guest-img" />
+                                <div className="guest-img-glow" />
+                            </div>
+                            <div className="guest-content">
+                                <h4 className="guest-name">Mr. Mani Prabhu</h4>
+                                <p className="guest-role">PROGRAM MANAGER</p>
+                                <p className="guest-org">Bosch Global Software Solutions</p>
+                                <div className="guest-decoration">
+                                    <span className="dec-line" />
+                                    <span className="dec-dot" />
+                                    <span className="dec-line" />
+                                </div>
+                            </div>
+                        </div>
+                        {/* Decorative corners */}
+                        <div className="guest-corner tl"></div>
+                        <div className="guest-corner tr"></div>
+                        <div className="guest-corner bl"></div>
+                        <div className="guest-corner br"></div>
+                    </motion.div>
+                </motion.div>
+
                 <div className="hero-glow-box" />
             </motion.section>
 
@@ -199,7 +242,7 @@ const HomePage = () => {
                 </div>
             </motion.section>
 
-            
+
         </div>
     );
 };
