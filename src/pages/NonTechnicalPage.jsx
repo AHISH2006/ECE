@@ -80,13 +80,16 @@ const EVENTS = [
         tag: 'Performance',
         accent: '#ffd700',
         poster: posterTalent,
-        description: 'Showcase your skills! From high-energy Dance and soulful Singing to expressive Mono Acts and hilarious Stand-up Comedy.',
+        description: 'Showcase your skills! From high-energy Dance and soulful Singing to expressive Mono Acts and a glamorous Fashion Show.',
         highlights: ['Multi-Category Show', 'Solo & Group Performances', 'On-Spot Singing Challenges', 'Creativity Unleashed'],
         rules: [
             'Dance: Group (≤5 members) or Solo. Time: 3-4 mins. Props & Costumes allowed.',
             'Singing: Solo (1.5 mins) or Duo (2-3 mins). On-spot situation song. 60s prep.',
             'Mono Act: Solo performance, 3-5 mins. Language: Tamil/English/Malayalam. Bring own props.',
-            'Stand-up Comedy: 3-4 mins. Strictly no body shaming or gender-based bullying.'
+            'Fashion Show: Team leader and 2-4 members. Performance time limit is 2 minutes.',
+            'Fashion Show: Follow a proper theme with decent and appropriate costumes. Bring your own music and props.',
+            'Fashion Show: Vulgarity, risky props, or inappropriate actions are strictly prohibited.',
+            'Fashion Show Allowed Props: Cooling glasses, Shawl/Dupatta, Cap, Water bottle, Umbrella.'
         ],
 
     },

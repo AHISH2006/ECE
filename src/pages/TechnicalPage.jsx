@@ -23,17 +23,20 @@ const EVENTS = [
         tag: 'Research',
         accent: '#00c8ff',
         poster: posterPaper,
-        description: 'Participants can choose topics related to ECE or any other innovative topic. Topics include: 5G and Future Communication Technology, Internet of Things (IoT) in Smart Homes, Artificial Intelligence in Electronics, Wireless Power Transfer, Robotics in Modern Engineering, Embedded Systems in Daily Life, Smart Cities using IoT, Satellite Communication Systems, Autonomous Vehicles Technology, Green Energy and Smart Grids, 6G Communication, Blockchain Technology, Cybersecurity, Augmented Reality (AR), Virtual Reality (VR), Edge Computing in IoT, Applications of Sensors, Role of Electronics in Healthcare, Smart Traffic Management System, Wearable Technology, Drone Technology, Climate Change, AI in Education, Space Exploration, Women Empowerment, Cyber Safety, Entrepreneurship, Social Media Impact, Sustainable Development, and Mental Health Awareness.',
-        highlights: [],
+        description: 'Present innovative, research-oriented, or application-based papers related to the respective department theme. UG/PG students from recognized institutions can present individually or in a team (2-4 members).',
+        highlights: [
+            'Submission Deadline: 10.03.2026',
+            'Selection Intimation: 10.03.2026',
+            'Presentation Time: 8-10 mins',
+            'Q&A Session: 2-5 mins'
+        ],
         rules: [
-            'Team Size: Each team can have 2 to 4 members only.',
-            'Presentation Time: The maximum time allowed is 4 minutes for each team.',
-            'Submission: The presentation slides (PPT) must be sent to the given Gmail ID before the event.',
-            'Topic: ECE related or any other innovative topics.',
-            'Slides Limit: The presentation should contain a maximum of 7 slides.',
-            'Time Management: Participants must strictly follow the given time limit.',
-            'Judging Criteria: Content Quality, Creativity, Technical Knowledge, and Presentation Skills',
-            'Decision: The judges\' decision will be final.'
+            'Eligibility: UG/PG students (Individual or Team of 2-4).',
+            'Submission: Include Paper Title, Author Name, College, Dept & Year.',
+            'Format: Microsoft PowerPoint (PPT), Max 10-15 slides.',
+            'Slide Contents: Title, Intro, Objectives, Methodology, Results/Discussion, Conclusion, References.',
+            'General: Report 30 mins early. Bring PPT in pen drive & email backup.',
+            'Judges\' decision will be final.'
         ],
     },
     {
@@ -186,7 +189,7 @@ const EventDetail = ({ event, onClose, onRegister }) => (
                     {/* Highlights */}
                     {event.highlights && event.highlights.length > 0 && (
                         <div className="ev-detail-section">
-                            <h4 className="ev-detail-section-title">✦ Key Topics</h4>
+                            <h4 className="ev-detail-section-title">✦ Key Points</h4>
                             <ul className="ev-detail-list">
                                 {event.highlights.map((h, i) => (
                                     <motion.li key={i} initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }}

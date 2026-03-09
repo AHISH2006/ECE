@@ -197,7 +197,7 @@ const HomePage = () => {
                                 <div className="guest-img-glow" />
                             </div>
                             <div className="guest-content">
-                                <h4 className="guest-name">Mr. Mani Prabhu</h4>
+                                <h4 className="guest-name">Mr. Prabhu mani -ME</h4>
                                 <p className="guest-role">PROGRAM MANAGER</p>
                                 <p className="guest-org">Bosch Global Software Solutions</p>
                                 <div className="guest-decoration">
